@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/regist.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="icon" href="../../img/logo.ico">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=TjCKtYVELEqjFX3sGFnTBBcijkT4MTe3"></script>
+    <!-- 路书 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/LuShu/1.2/src/LuShu_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+    <!-- 添加电子围栏 -->
+    <script src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="//api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css">
+    <title>新时空智能系统</title>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header class="header clearfix">
+        <div class="topUp fl">
+            <a href="../Home/index.html" class="logo_bg">
+                <img src="../../img/logo.png" alt="">
+            </a>
+            <ul class="menusBox">
+                <li class="active menus">
+                    <a href="javascript:void(0)">首页</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="../Flow/flowList.html">流量管理</a>
+                </li> -->
+                <!-- <li class="menus">
+                    <a href="../Order/trafficRecord.html">订单管理</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="topDown">
+            <span class="dropDown">
+                <span class="glyphicon glyphicon-bell"></span>
+                <span class="userName"></span>
+                <img class="userIcon"  src="../../img/userIcon07.png" alt="">
+            </span>
+            <div class="userBox">
+                <ul>
+                    <li>
+                        <a href="../Personal/userCenter.html">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="../Personal/login.html">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- 列表 -->
+    <div class="leftBox" id="leftBox">
+        <div class="moveItem leftBox_inner">
+            <h2 class="removeBar">
+                <span class="title">Devices : <span id="deviceTotal" class="deviceTotal flagText">0</span></span>
+                <span class="title" style="margin-left: 42px">Consumed flow : <span id="flagText" class="flagText">0 KB</span> </span>
+                 <!-- 点击关闭 -->
+                <!-- <span class="closeBtn optionIcon fr glyphicon glyphicon-remove"></span> -->
+                <!-- 点击折叠 -->
+                <!-- <span class="fold optionIcon fr glyphicon glyphicon-chevron-down"></span> -->
+                <!-- 点击添加 --> 
+                <!-- <span class="add optionIcon fr glyphicon glyphicon-plus"></span>  -->
+                <!-- 点击发送信息 -->
+                <!-- <span class="message optionIcon fr glyphicon glyphicon-envelope"></span>  -->
+            </h2>
+            <div class="removeConten">
+                <div class="dropdown">
+                    <!-- 设备分类 -->
+                    <span class="menusIcon glyphicon glyphicon-tasks" id="dropdownFlag"></span>
+                    <ul class="dropdown-menu" id="menusBox">
+                        <li>
+                            <a href="javascript:void(0)" class="menusClass1" id="menusClass1">
+                                <span class="menuItem_1 glyphicon glyphicon-menu-right"></span>设备类型
+                            </a>
+                            <ul class="menuBox_2" id="menuBox_2" style="display:none">
+                                <!-- <li><input type="checkbox" value="DS200"> DS200</li> -->
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- 刷新页面 -->
+                    <!-- <span class="menusIcon glyphicon glyphicon-refresh" id="dropdownFlag"
+                        onclick="window.location.reload()"></span> -->
+                </div>
+                <!-- 检索查询 -->
+                <div class="searchContainer">
+                    <div class="searchBox">
+                        <input id="serarchTextAbout" class="searchInput" type="search" placeholder="请输入查询的设备SN">   
+                    </div>
+                    <button class="search_device" id="search_device">搜索</button>
+                    <button class="add_device fr">添加设备</button>
+                </div>
+                <!-- 信息列表 -->
+                <table class="table tableBox table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="index">序号</th>
+                            <th>企业名称</th>
+                            <th>设备类型</th>
+                            <th>模块名称</th>
+                            <th>设备SN</th>
+                            <th>设备状态</th>
+                            <th>激活日期</th>
+                            <th>联网状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyBox">
+
+                    </tbody>
+                </table>
+                <!-- 分页 -->
+                <div id="page" class="page_div"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 地图 -->
+    <div class="rightBox" id="rightBox">
+        <div class="moveItem">
+            <h2 class="removeBar">
+                <span class="title">Map</span>
+                <!-- 点击关闭 -->
+                <!-- <span class="closeBtn optionIcon fr glyphicon glyphicon-remove"></span>  -->
+                <!-- 点击添加 -->
+                <!-- <span class="add optionIcon fr glyphicon glyphicon-plus"></span>  -->
+            </h2>
+            <!-- 地图搜索框 -->
+            <!-- <div class="search">
+                <input type="search" id="map_search" placeholder="请输入搜索城市名称" class="inputBox">
+                <span id="map_searchBtn" class="glyphicon glyphicon-search fr searchIcon"></span>
+            </div> -->
+            <div class="view">
+                <span id="switchView" class="glyphicon glyphicon-fullscreen"></span>
+                <span id="closeView" class="glyphicon glyphicon-fullscreen" style="display: none"></span>
+            </div>
+            <div id="allmap"></div>
+        </div>
+    </div>
+
+    <!-- (1) 添加设备弹窗 -->
+    <div class="addDevice_dialog messageDialog" id="addDevice_dialog">
+        <label for="deviceGroupId" class="deviceItem deviceItem3">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- deviceGroupId: -->
+                设备分组ID:
+            </span>
+            <input type="text" id="deviceGroupId" class="deviceItem_content deviceClassId fr" placeholder="请输入设备分组ID">
+        </label>
+        <label for="deviceClassId" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- deviceClassId: -->
+                设备类型ID:
+            </span>
+            <input type="text" id="deviceClassId" class="deviceItem_content deviceClassId fr" placeholder="请输入设备类型ID">
+        </label>
+        <label for="deviceName" class="deviceItem deviceItem5">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- deviceName: -->
+                设备名称:
+            </span>
+            <input type="text" id="deviceName" class="deviceItem_content deviceClassId fr" placeholder="请输入设备名称">
+        </label>
+        <label for="deviceId" class="deviceItem deviceItem4">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- deviceId: -->
+                设备SN/ID
+            </span>
+            <input type="text" id="deviceId" class="deviceItem_content deviceClassId fr" placeholder="请输入设备SN/ID">
+        </label>
+        <label for="deviceDesc" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <!-- <span class="requireFlag">*</span> -->
+                <!-- deviceDesc: -->
+                设备描述:
+            </span>
+            <input type="text" id="deviceDesc" class="deviceItem_content deviceClassId fr" placeholder="请输入设备描述">
+        </label>
+        <button class="confirm_btn optionBtn fr">确定</button>
+        <button class="cancel_btn optionBtn fr">取消</button>
+    </div>
+
+</body>
+
+</html>
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../lib/layer-v3.1.1/layer/layer.js"></script>
+<script type="text/javascript" src="../../lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../lib/pageMe.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/index.js"></script>
+<script>
+
+
+// 函数调用
+
+    // 登录判断
+    var isLogin= JSON.parse(localStorage.getItem('userInfo'))
+    if(isLogin === null) {
+        window.location.href= '../Personal/login.html';
+    }
+
+    // 一级菜单
+    jQuery('#dropdownFlag').click(function(){
+        jQuery('#menusBox').toggleClass('showMenu');
+    });
+
+
+    // 二级菜单
+    jQuery('.menusClass1').click(function(){
+        jQuery(this).find('span').toggleClass('glyphicon-menu-down')        
+        jQuery(this).siblings('.menuBox_2').slideToggle();
+    })
+
+
+    // 菜单列表
+    getDeviceTypeListFun('app/deviceClass/list','get',rendCategoryName);
+
+    function getDeviceTypeListFun(reqUrl,reqType,temp) {
+        jQuery.ajax({
+            url: baseUrl+reqUrl,
+            type: reqType,
+            contentType: 'application/json',
+            headers: {
+                "token": JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            success: function(res) {
+                if(res.code == 0) {
+                    if(res.data && res.data.length>0){
+                        temp(res.data)
+                    }
+                }else {
+                    layer.msg(res.msg,function(){
+                        layer.closeAll();
+                    });
+                }
+            },
+            error: function(err) {
+                layer.msg(err.msg)
+            }
+        })
+    }
+
+    function rendCategoryName(arrData){
+        for (let i = 0; i < arrData.length; i++) {
+            var typeItem= 
+                '<li>'+
+                    '<input type="checkbox" value="'+arrData[i].deviceClassId+'"> '+arrData[i].className+
+                '</li>'
+            jQuery('#menuBox_2').append(typeItem);
+        }
+    }
+
+    // 根据设备类型筛选
+    jQuery('#menuBox_2').on('click', 'li', function () {
+        if (jQuery(this).find('input').attr('checked')) { // 点击切换选中
+            jQuery(this).find('input').attr('checked', false)
+            // 请求移除此列的查询数据返回
+            var menusItem = jQuery('.menuBox_2>li>input[checked]')
+            var deviceClassIds = '';
+            for (let i = 0; i < menusItem.length; i++) {
+                deviceClassIds += menusItem[i].value + ',';
+            }
+            getDeviceList("1","12","",deviceClassIds,'app/device/list','get')
+
+        } else {
+            jQuery(this).find('input').attr('checked', true)
+            // 请求添加此列的查询数据返回
+            var menusItem = jQuery('.menuBox_2>li>input[checked]')
+            var deviceClassIds = '';
+            for (let i = 0; i < menusItem.length; i++) {
+                if(menusItem.length == 1) {
+                    deviceClassIds += menusItem[i].value;
+                }else {
+                    deviceClassIds += menusItem[i].value + ',';
+                }
+            }
+            getDeviceList("1","12","",deviceClassIds,'app/device/list','get')
+        }
+    })
+
+
+    //  Device 首次渲染  
+    getDeviceList("","12","","",'app/device/list','get') 
+
+
+    function getDeviceList(pageNum,pageSize,deviceGroupId,deviceClassId,reqUrl,reqType){     
+        jQuery.ajax({
+            url: baseUrl+reqUrl+'?pageNum='+pageNum+"&pageSize="+pageSize+"&deviceGroupId="+deviceGroupId+"&deviceClassId="+deviceClassId,
+            type: reqType,
+            contentType: 'application/json',
+            headers: {
+                "token": JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            success: function(res) {
+                if(res.code == 0) {
+                   if(res.rows && res.rows.length>0){
+                        jQuery('#deviceTotal').text(res.total); // 头部显示总设备数
+                        jQuery("#page").paging({
+                            pageNum: 1, 
+                            totalNum: Math.ceil(res.total / pageSize), 
+                            totalList: res.total,
+                            callback: function (currentNum) {
+                                getDeviceList(currentNum, pageSize, deviceGroupId,deviceClassId,'app/device/list','get');
+                                rendTable(filterTableData(res.rows));
+                                return;
+                            }
+                        });
+                        // 1.渲染左边Table
+                        rendTable(filterTableData(res.rows.slice(0,pageSize)));
+                        // 2.转换经纬度,右边地图标记
+                        rendMap(res.rows); 
+                   }else {
+                       layer.msg('暂无数据')
+                   }
+                }else {
+                    layer.msg(res.msg,function(){
+                        layer.closeAll();
+                    });
+                }
+            },
+            error: function(err) {
+                layer.msg(err.msg)
+            }
+        })
+    }
+
+
+    getAllPosition('app/gps/queryAllDeviceLatestLocation','get');
+
+    // 获取所有标记点
+    function getAllPosition(reqUrl,reqType) {
+        jQuery.ajax({
+            url: baseUrl+reqUrl,
+            type: reqType,
+            headers: {
+                "token": JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            success: function(res) {
+                if(res.code == 0) {
+                    // 经纬度转换   
+                    // rendMap(filterAllPointData(res.data));
+                }
+            }
+        })
+    }
+
+    // 模糊搜索
+    function searchFun(reqUrl,par) {
+        jQuery.ajax({
+            url: baseUrl + reqUrl + par,
+            type: 'GET',
+            headers: {
+                "token": JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            success: function (res) {
+                if (res.code == "0") {
+                    if (res.rows.length != 0) {
+                        rendTable(res.rows); // 渲染左侧设备列表    
+                    } else {
+                        layer.msg('没有查到匹配的信息,请重新输入设备SN');
+                        return false;
+                    }
+                }
+
+            }
+        })
+    }
+
+    // 点击搜索
+    jQuery('#search_device').on('click', function () {
+        var searchText = jQuery('#serarchTextAbout').val();
+        if (searchText) {
+            searchFun('app/device/search?info=',searchText)
+        } else {
+            getDeviceList("","12","","",'app/device/list','get')
+        }
+    })
+
+    // 回车搜索
+    jQuery('#serarchTextAbout').on('keyup', function (e) {
+        if (e.keyCode == "13") {
+            var searchText = jQuery('#serarchTextAbout').val();
+            if (searchText) {
+                searchFun(searchText);
+            } else {
+                getDeviceList("","12","","",'app/device/list','get')
+            }
+        }
+        
+    })
+
+    
+    // 添加设备弹窗
+    jQuery('.add_device').on('click',function(){
+        layer.open({
+            type: 1,
+            title: '新增设备',
+            area: ['500px', '400px'], //宽高
+            content: jQuery('.addDevice_dialog')
+        })
+    })
+    
+    // 提交添加
+    jQuery('.confirm_btn').on('click',function(){
+        var addObj= {
+            deviceGroupId: jQuery('#deviceGroupId').val(),     //  设备分组ID  
+            deviceClassId: jQuery('#deviceClassId').val(),     //  设备类型id
+            deviceName: jQuery('#deviceName').val(),            //  设备名称
+            deviceId: jQuery('#deviceId').val(),               //  设备ID/SN      
+            deviceDesc: jQuery('#deviceDesc').val()           //  设备描述
+        }
+        addObj= JSON.stringify(addObj);
+        addDeviceFun('app/device/add',addObj);
+    })
+
+    // 取消添加 
+    jQuery('.cancel_btn').on('click',function(){
+        layer.closeAll();
+    })
+
+    // 添加设备
+    function addDeviceFun(reqUrl,par){
+        jQuery.ajax({
+            url: baseUrl+reqUrl,
+            type: 'post',
+            contentType: 'application/json',
+            headers: {
+                "token": JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            data: par,
+            success: function(res) {
+                if(res.code == 0) {
+                    layer.msg('添加成功',function(){
+                        getDeviceList("1","12","","",'app/device/list','get');
+                    })
+                }else {
+                    layer.msg(res.msg,function(){
+                        layer.closeAll();
+                    });
+                }
+            },
+            error: function(err) {
+                layer.msg(err.msg)
+            }
+        })
+    }
+
+    // 地图标记Marker
+    function positionMark(data_lng, data_lat, data_tipMessage, isOpen) {
+        if (data_lng == null || data_lat == null) {
+            if (isOpen) {
+                layer.msg('没有定位信息返回');
+                return;
+            }
+        } else {
+            var addPoint = new BMap.Point(data_lng, data_lat);
+            var addMarker = new BMap.Marker(addPoint);
+            // var allOverlay=  map.getOverlays(); // 获取地图上所有添加的标注点
+            // for (var i = 0; i < allOverlay.length; i++) {
+            //     map.removeOverlay(allOverlay[i]); // 移除地图上所有已经添加的标注点
+            // }
+            map.addOverlay(addMarker);
+            map.setCenter(addPoint);
+            var tipBox = {
+                width: 250, 
+                // height: 160,
+                title: "Device Info", 
+                offset: { 
+                    height: -16,
+                    width: -2
+                }, 
+                enableMessage: true, //设置允许信息窗发送短息
+                message: data_tipMessage
+            }
+            var infoWindow = new BMap.InfoWindow(data_tipMessage, tipBox);
+            if (isOpen) {
+                map.openInfoWindow(infoWindow, addPoint); 
+                map.setCenter(addPoint);
+            }
+            addMarker.addEventListener('click', function () {
+                map.openInfoWindow(infoWindow, addPoint);
+                map.setCenter(addPoint);
+            });
+        }
+    }
+
+
+    // 左侧设备列表添加点击事件
+    jQuery('#tbodyBox').on('click', 'tr', function () {
+        jQuery(this).addClass('success').siblings('tr').removeClass('success'); 
+        var deviceId = jQuery(this).find('.deviceId').text(); 
+        var deviceModule = jQuery(this).find('.deviceModel').text(); 
+        var deviceType = jQuery(this).find('.deviceType').text();
+        getCurrentPosition('/app/gps/queryDeviceCurrentLocation?deviceId=', 'get', deviceId, deviceModule, deviceType);
+    }) 
+
+    // 当前位置
+    function getCurrentPosition(reqUrl,reqType,deviceId,deviceModule,deviceType) {
+        jQuery.ajax({
+            url: baseUrl+reqUrl+deviceId,
+            type: reqType,
+            headers: {
+                token: JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            success: function (res) {
+                if (res.code == 0) { 
+                    res.data.deviceId = deviceId;
+                    res.data.deviceModule = deviceModule;
+                    res.data.deviceType = deviceType;
+                    rendMap(filterCurrentData(res.data));
+                } else {
+                    layer.msg('暂无设备数据信息');
+                }
+            }
+        })
+    }
+
+    // 封装下发指令方法
+    function sendMessageToDevice(params) {
+        jQuery.ajax({
+            url: baseUrl+'app/oae/sendMessage',
+            type: 'post',
+            headers: {
+                "token": JSON.parse(localStorage.getItem('userInfo')).token
+            },
+            contentType: "application/json",
+            data: params,
+            success: function(res){
+                if(res.code == 0){
+                    layer.msg('指令发送成功,暂无定位数据更新')
+                }
+            }
+        })
+    }
+
+    // 点击操作按钮调用下发指令
+    jQuery('#tbodyBox').on('click','.location',function(){
+        var parObj = {
+                "deviceId": "01327704SKY99F5",
+                "messageBody": "Test1234",
+                "messageBodyType": 0,
+                "messagePriority": 1,
+                "messageSubject": "Test",
+                "networkId": 6,
+                "sendTime": 202001201200
+            },
+        parObj= JSON.stringify(parObj);   
+        sendMessageToDevice(parObj)
+    })
+
+    // filteData
+    function filterTableData(arrData){
+        let newArrData = [];
+        let satModuleType = {
+            "1": "OGI",
+            "2": "OG2"
+        };
+        let satActiveType = {
+            "0": "未激活",
+            "1": "已激活"
+        }
+
+        let devStateType = {
+            "0": "在线",
+            "1": "停止",
+            "2": "关闭",
+            "3": "异常",
+        }
+        for (let i = 0; i < arrData.length; i++) {
+            newArrData[i]= {
+                activate: satActiveType[arrData[i].activate],
+                activateTime: arrData[i].activateTime ? arrData[i].activateTime : "-",
+                companyAlias: arrData[i].companyAlias,
+                companyId: arrData[i].companyId,
+                companyName: arrData[i].companyName,
+                createTime: arrData[i].createTime,
+                deviceDesc: arrData[i].deviceDesc,
+                deviceName: arrData[i].deviceName,
+                deviceSn: arrData[i].deviceSn,
+                deviceModel: satModuleType[arrData[i].deviceModel] ? satModuleType[arrData[i].deviceModel] : "OGI",
+                deviceState: devStateType[arrData[i].deviceState],
+                id: arrData[i].id,
+                position: arrData[i].position,
+                updateTime: arrData[i].updateTime        
+            }
+        }
+        return newArrData;
+    }
+
+    function filterCurrentData(objData){
+        var newArrData = [{
+            deviceSn: objData.deviceId,
+            deviceModule: objData.deviceModule,
+            deviceName: objData.deviceType,
+            position: {
+                        latitude: objData.latitude,
+                        longitude: objData.longitude,
+                        altitude: objData.altitude,
+                        speed: objData.speed,
+                        warnFlag: objData.warnFlag,
+                        gpsStatus: objData.gpsStatus,
+                        messageTime: objData.messageTime,
+                        localTime: objData.localTime
+                    } 
+        }];
+        return newArrData;
+    }
+
+    function filterAllPointData(arrData){
+        var newArrData = [];
+        for (let i = 0; i < arrData.length; i++) {
+            newArrData[i]= {
+                deviceSn: arrData[i].deviceId,
+                deviceModule: arrData[i].deviceModule,
+                position: {
+                            latitude: arrData[i].latitude,
+                            longitude: arrData[i].longitude,
+                            altitude: arrData[i].altitude,
+                            speed: arrData[i].speed,
+                            warnFlag: arrData[i].warnFlag,
+                            gpsStatus: arrData[i].gpsStatus,
+                            messageTime: arrData[i].messageTime,
+                            localTime: arrData[i].localTime
+                        }
+            }
+            
+        }
+        return newArrData;
+    }
+
+    function filterLngLat(arrPoints,arrData){
+        // 百度API一次最多只支持10个点坐标转换
+        // data.status状态码 0-正常 1-内部错误 21-from非法  22-to非法 24-coords格式非法 25-coords个数非法,超过限制
+        // 批量转换经纬度信息,使用递归保证返回循序一致
+        var total= 0;
+        var groupCount= 0;
+        if(arrPoints.length%10 > 0){
+            groupCount= (arrPoints.length / 10) + 1;
+        }else {
+            groupCount= (arrPoints.length / 10); 
+        }
+        for (let i = 0; i < groupCount; i++) {
+            var newArrPoints= [];
+            for (let j = 0; j < 10; j++) {
+                if(total < arrPoints.length) { 
+                    var point= new BMap.Point(arrPoints[(i*10)+j].lng,arrPoints[(i*10)+j].lat);
+                    newArrPoints.push(point);
+                }
+                total++;
+            }
+            var convertor= new BMap.Convertor();
+            convertor.translate(newArrPoints,1,5,function(data){
+                if(data.status === 0) {
+                    for (let i = 0; i < data.points.length; i++) {
+                        // console.log(data.points[i]);
+                        lngLatToAddress(data.points[i],arrData);
+                        // map.setCenter(data.points[i]);
+                        // map.addOverlay(new BMap.Marker(data.points[i]));
+                    }
+                    // lngLatToAddress(data.points);
+                }
+            })
+            
+        }
+    }
+
+    function lngLatToAddress(pointObj,arrData){
+        var addressText;
+        var myGeo = new BMap.Geocoder();
+        myGeo.getLocation(pointObj, function (rs) {
+            var addComp= rs.addressComponents;
+            addressText= addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+            var tipMessage= "lng:"+pointObj.lng+"<br>"+"lat:"+pointObj.lat +"<br>"+addressText;
+            // positionMark(pointObj.lng,pointObj.lat,tipMessage,true);
+            positionMark(pointObj.lng,pointObj.lat,rendInfoWindow(arrData,addressText),true);
+        });        
+    }
+
+    function rendInfoWindow(arrData,address){
+        for (let i = 0; i < arrData.length; i++) {
+            tipMessage = '<ul>' +
+                        '<li>Device_type:&nbsp;&nbsp;'+ arrData[i].deviceName+'</li>' +
+                        '<li>Device_SN:&nbsp;&nbsp;' + arrData[i].deviceSn + '</li>' +
+                        '<li>Lat:&nbsp;&nbsp;' + arrData[i].position.latitude + '</li>' +
+                        '<li>Lng:&nbsp;&nbsp;' + arrData[i].position.longitude + '</li>' +
+                        '<li>altitude:&nbsp;&nbsp;' + arrData[i].position.altitude +" 米" + '</li>' +
+                        '<li>speed:&nbsp;&nbsp;' + arrData[i].position.speed +" km/h" + '</li>' +
+                        '<li>warnFlag:&nbsp;&nbsp;' + arrData[i].iswarnFlag  + 
+                            '<button id="warnInfoBtn" class="isalarm">查看信息</button>'+  
+                        '</li>' +
+                        '<li>gpsStatus:&nbsp;&nbsp;' + arrData[i].gpsState + '</li>' +
+                        '<li>localTime:&nbsp;&nbsp;' + arrData[i].position.localTime + '</li>' +
+                        // '<li>mesaTime1:&nbsp;&nbsp;' + arrData[i].position.messageTime + '</li>' +
+                        '<li>mesaTime:&nbsp;&nbsp;' +GMTtoStr(arrData[i].position.messageTime) + '</li>' +
+                        '<li>Address:&nbsp;&nbsp;' + address + '</li>' +
+                        '<li class="fr">'+
+                            // '<button id="playBack">palyBack</button>'+
+                            '<a target="_blank" href="../Device/deviceRecord.html?deviceId=' +arrData[i].deviceSn + '">查看更多></a>'+
+                        '</li>' +
+                    '</ul>';
+            return tipMessage
+            
+        }            
+                                
+    }
+
+    function rendTable(arrData) {
+        jQuery('#tbodyBox').empty();
+        for (let i = 0; i < arrData.length; i++) {
+            var trItem = 
+                '<tr>' +
+                    '<td class="index">'+(i+1)+'</td>' +
+                    // '<td> '+arrData[i].companyName+' </td>' + 
+                    '<td> '+arrData[i].companyAlias+' </td>' + 
+                    '<td class="deviceType">'+arrData[i].deviceName+'</td>' + 
+                    '<td class="deviceModule">'+arrData[i].deviceModel+'</td>' +  
+                    '<td class="deviceId">' + arrData[i].deviceSn + '</td>' +
+                    '<td>'+arrData[i].activate+'</td>' + 
+                    '<td>' +arrData[i].activateTime+ '</td>' + 
+                    '<td class='+arrData[i].deviceState+' id="deviceState">'+arrData[i].deviceState+'</td>' + 
+                    '<td>' +
+                        '<a class="glyphicon glyphicon-record location" href="javascript:void(0)" ></a>' +
+                    '</td>' +
+                '</tr>'
+            jQuery('#tbodyBox').append(trItem);
+        }
+    }
+
+    function rendMap(arrData) {
+        var arrPoint= [];
+        for (let i = 0; i < arrData.length; i++) {
+            if(arrData[i].position.longitude && arrData[i].position.latitude) {
+                arrPoint.push({
+                    lng: arrData[i].position.longitude,
+                    lat: arrData[i].position.latitude
+                });
+            }
+        }
+        filterLngLat(arrPoint,arrData);
+   }
+
+</script>
+
+
+
+<!-- 百度地图 -->
+<script type="text/javascript">
+    // -----------------操作百度地图API---------------------
+    // 1.0 百度地图点击切换全屏
+    var switchView = document.getElementById("switchView");
+
+    function requestFullScreen() {
+        var de = document.querySelector("#allmap") || document.documentElement;
+        if (de.requestFullscreen) {
+            de.requestFullscreen();
+        } else if (de.mozRequestFullScreen) {
+            de.mozRequestFullScreen();
+        } else if (de.webkitRequestFullScreen) {
+            de.webkitRequestFullScreen();
+        }
+    }
+    switchView.onclick = function () {
+        requestFullScreen();
+    }
+
+    //2.0 百度地图API功能
+    var map = new BMap.Map("allmap"); // 创建Map实例
+    
+    map.centerAndZoom(new BMap.Point(114.025973657, 22.5460535462), 4); // 初始化地图,设置中心点坐标和地图级别
+    
+    map.setMapStyle({
+        style: 'grassgreen'
+    });
+    
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_NORMAL_MAP, //右上角地图切换按钮
+            BMAP_HYBRID_MAP //右上角卫星切换按钮
+        ]
+    }));
+    
+    map.setCurrentCity("深圳"); // 设置地图显示的城市 此项是必须设置的
+    
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放,默认是禁用
+
+    //3.0 地图上左上角添加比例尺控件
+    var top_left_control = new BMap.ScaleControl({ // 左上角，添加比例尺
+        anchor: BMAP_ANCHOR_TOP_LEFT
+    });
+
+    var top_left_navigation = new BMap.NavigationControl(); //左上角，添加默认缩放平移控件
+
+    var top_right_navigation = new BMap.NavigationControl({ //右上角，仅包含平移和缩放按钮
+        anchor: BMAP_ANCHOR_TOP_RIGHT,
+        type: BMAP_NAVIGATION_CONTROL_SMALL
+        /*缩放控件type有四种类型:
+            BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；
+            BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；
+            BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮
+        */
+    });
+    map.addControl(top_left_control); // 添加上述控件和比例尺
+    map.addControl(top_left_navigation);
+    map.addControl(top_right_navigation);
+
+
+    // 4.0 添加城市列表控件--检索
+    // jQuery("#map_searchBtn").click(function () { // 地图检索功能,根据城市名定位(点击搜索)
+    //     var getContent = jQuery('#map_search').val();
+    //     map.centerAndZoom(getContent, 12);
+    // })
+
+    // jQuery('#map_search').bind('keyup', function (event) { // 地图检索功能,根据城市名定位(回车搜索)
+    //     if (event.keyCode == "13") {
+    //         //回车执行查询
+    //         var getContent = jQuery('#map_search').val();
+    //         map.centerAndZoom(getContent, 10);
+    //     }
+    // });
+
+    // 5.0 添加电子围栏
+    var overlays = [];
+	var overlaycomplete = function(e){
+        overlays.push(e.overlay);
+    };
+    var styleOptions = {
+        strokeColor:"red",    //边线颜色。
+        fillColor:"red",      //填充颜色。当参数为空时，圆形将没有填充效果。
+        strokeWeight: 3,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
+        fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+        strokeStyle: 'solid' //边线的样式，solid或dashed。
+    }
+    //实例化鼠标绘制工具
+    // var drawingManager = new BMapLib.DrawingManager(map, {
+    //     isOpen: false, //是否开启绘制模式
+    //     enableDrawingTool: true, //是否显示工具栏
+    //     drawingToolOptions: {
+    //         anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+    //         offset: new BMap.Size(5, 5), //偏离值
+    //     }
+    // });    
+
+    jQuery(function () {
+        $('.anchorTR>div').eq(1).find('div')[0].innerText = "卫星";
+        map.setMapStyle({
+            style: 'grassgreen'
+        });
+    })
+
+    //  6.0 增加轨迹回放功能
+    // var lushu;
+    // var drv= new BMap.DrivingRoute('深圳',{
+    //     onSearchComplete: function(res) {
+    //         if(drv.getStatus() == BMAP_STATUS_SUCCESS) {
+    //             var plan = res.getPlan(0);
+    //             var arrPois= [];
+    //             for(var j=0;j<plan.getNumRoutes();j++){
+    //                 var route= plan.getRoute(j);
+    //                 arrPois= arrPois.concat(route.getPath());
+    //             }
+    //             map.addOverlay(new BMap.Polyline(arrPois,{strokeColor: '#111'}));
+    //             map.setViewport(arrPois);
+    //             lushu= new BMapLib.LuShu(map,arrPois,{
+    //                 defaultContent: '',
+    //                 autoView: true, // 是否开启自动视野调整,如果开启那么路书在运动过程中会根据视野自动调整
+    //                 icon: new BMap.Icon('../../IMG/icons/icon_truck.png',new BMap.Size(32,26),{anchor: new BMap.Size(27,13)}),
+    //                 speed: 5,
+    //                 enableRotation: true, // 是否设置marker 随着道路的走向进行旋转
+    //                 landmarkPois: [
+    //                     {lng:114.1372632 ,lat:22.5513242},
+    //                     {lng:114.1361788 ,lat:22.5494717},
+    //                     {lng:114.135889 ,lat:22.5490347},
+    //                     {lng:114.1346247 ,lat:22.5472678},
+    //                     {lng:114.1342724 ,lat:22.5469033},
+    //                     {lng:114.1335212 ,lat:22.5462857},
+    //                     {lng:114.1321695 ,lat:22.5456221}
+    //                 ] 
+    //             })
+    //         }
+    //     }
+    // })
+
+    // var end= new BMap.Point(114.1388264,22.5537824);
+    // var start= new BMap.Point(114.1291927,22.5438925);
+    // drv.search(start,end);
+    
+    // jQuery('#search_device').on("click",function() {
+    //     lushu.start();
+    // })
+
+    
+</script>

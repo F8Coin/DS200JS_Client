@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/regist.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/personal.css">
+    <link rel="icon" href="../../img/logo.ico">
+    <title>新时空智能系统</title>
+</head>
+<style>
+    body {
+        background-color: #ffffff;
+        overflow: auto;
+    }
+
+    .checkBtn {
+        background-color: #e6e6e6;
+    }
+
+    .inputText {
+        height: 32px;
+        line-height: 32px;
+        width: 300px;
+        padding: 0px 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+    .layOut {
+        border-top: 1px solid #e7e7e7;
+        padding: 20px 30px 30px;
+    }
+
+    .layOut .dashboard .input-group-btn .btn {
+        margin-top: -2px;
+    }
+
+    .layOut .dashboard .moduleContainer .btns {
+        margin-top: 20px;
+    }
+
+    .layOut .dashboard .moduleContainer .equipmentTable {
+        cursor: pointer;
+        margin-top: 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+     /* 分页 */
+     .page_div {
+        margin: 30px 10px 20px 0;
+        text-align: center;
+        color: #666
+    }
+
+    /* 页数按钮样式 */
+
+    .page_div button {
+        display: inline-block;
+        min-width: 30px;
+        height: 28px;
+        cursor: pointer;
+        color: #666;
+        font-size: 13px;
+        line-height: 28px;
+        background-color: #f9f9f9;
+        border: 1px solid #dce0e0;
+        text-align: center;
+        margin: 0 4px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    #firstPage,
+    #lastPage,
+    #nextPage,
+    #prePage {
+        width: 50px;
+        color: #0073A9;
+        border: 1px solid #0073A9
+    }
+
+    #nextPage,
+    #prePage {
+        width: 70px
+    }
+
+    .page_div .current {
+        background-color: #0073A9;
+        border-color: #0073A9;
+        color: #FFF
+    }
+
+    /* 页面数量 */
+
+    .totalPages {
+        margin: 0 10px
+    }
+
+    .totalPages span,
+    .totalSize span {
+        color: #0073A9;
+        margin: 0 5px
+    }
+
+    /*button禁用*/
+
+    .page_div button:disabled {
+        opacity: .5;
+        cursor: no-drop
+    }
+
+    /* 条件查询组件 */
+    .layOut .queryBox .inputBox{
+        height: 36px;
+        width: 320px;
+        line-height: 36px;
+        padding: 0px 6px;
+        border: 1px solid #e7e7e7;
+    }
+
+    .layOut .queryBox .inputBox .inputText {
+        border: none;
+    } 
+
+    .layOut .queryBox .inputBox .searchIcon {
+        font-size: 20px;
+        margin-top: 4px;
+    }
+
+    .layOut .queryBox>.dateSelector {
+        margin-left: 20px;
+        position: relative;
+    }
+
+    .layOut .queryBox>.dateSelector>.dateInput {
+        width: 140px;
+    }
+
+    .layOut .queryBox>.searchOptionBtn {
+        margin-left: 60px;
+    }
+
+
+</style>
+<body>
+    <header class="header clearfix">
+        <div class="topUp fl">
+            <a href="../Home/index.html" class="logo_bg">
+                <img src="../../img/logo.png" alt="">
+            </a>
+            <ul class="menusBox">
+                <li class="menus">
+                    <a href="../Home/index.html">首页</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">渠道管理</a>
+                </li>
+                <li class="menus">
+                    <a href="javascript:void(0)">设备管理</a>
+                </li> -->
+                <li class="menus">
+                    <a href="../Flow/flowList.html">流量管理</a>
+                </li>
+                <li class="menus">
+                    <a href="../Order/trafficRecord.html">订单管理</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">统计报表</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="topDown">
+            <span class="dropDown">
+                <span class="glyphicon glyphicon-bell"></span>
+                <span class="userName"></span>
+                <img class="userIcon"  src="../../img/userIcon07.png" alt="">
+            </span>
+            <div class="userBox">
+                <ul>
+                    <li>
+                        <a href="../Personal/userCenter.html">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="../Personal/login.html">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="layOut">
+        <div class="apiContainer">
+            <!-- 1.授权验证 -->
+            <div class="apiItem w90">
+                <p class="title">1. 授权验证</p>
+                <p class="text">接口地址: /app/oae/login</p>
+                <p class="text">请求方式: POST</p>
+                <P class="text">请求参数 :</P>
+                <table class="table table-bordered apiTable">
+                    <thead>
+                        <tr>
+                            <th>参数名称</th>
+                            <th>说明</th>
+                            <th>数据类型</th>
+                            <th>必填</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>username</td>
+                            <td>账号</td>
+                            <td>string</td>
+                            <td>是</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>密码</td>
+                            <td>string</td>
+                            <td>是</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应状态 :</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>状态码</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>200</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>201</td>
+                            <td>Created</td>
+                        </tr>
+                        <tr>
+                            <td>401</td>
+                            <td>Unauthorized</td>
+                        </tr>
+                        <tr>
+                            <td>403</td>
+                            <td>Forbidden</td>
+                        </tr>
+                        <tr>
+                            <td>404</td>
+                            <td>Not Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应参数 :</p>
+                <table class="table table-bordered apiTable">
+                    <thead>
+                        <tr>
+                            <th>参数名称</th>
+                            <th>说明</th>
+                            <th>类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>token</td>
+                            <td>授权凭证</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>expire</td>
+                            <td>有效期限</td>
+                            <td>number</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应示例</p>
+                <pre>
+                    {
+                        "msg": "登录成功！",
+                        "code": 0,
+                        "data": {
+                        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTgzNzIzNTE0LCJleHAiOjE1ODM3MzA3MTR9.r7E6EOlYdsNcSyYvs0t2B2D2iTFbO1grZW0BtSY8wPD9Ip9_fiJL2OjJ2xCyPhleMpjs8_Vnue9LmCYad1aLNw",
+                        "expire": 7200
+                        }
+                    }
+                </pre>
+                <br>
+            </div>
+            <!-- 2.GPS数据 -->
+            <!-- 2.1 查询设备当前位置 -->
+            <div class="apiItem w90">
+                <p class="title">2. GPS 定位数据</p>
+                <p class="text text_title">2.1 查询设备当前位置</p>
+                <p class="text">接口地址: /app/gps/queryDeviceCurrentLocation</p> 
+                <p class="text">请求方式: GET</p>
+                <P class="text">请求参数</P>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>参数名称</th>
+                            <th>说明</th>
+                            <th>数据类型</th>
+                            <th>必填</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>deviceId</td>
+                            <td>设备ID/SN</td>
+                            <td>string</td>
+                            <td>是</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应状态 :</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>状态码</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>200</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>401</td>
+                            <td>Unauthorized</td>
+                        </tr>
+                        <tr>
+                            <td>403</td>
+                            <td>Forbidden</td>
+                        </tr>
+                        <tr>
+                            <td>404</td>
+                            <td>Not Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应参数</p>
+                <table class="table table-bordered apiTable">
+                    <thead>
+                        <tr>
+                            <th>参数名称</th>
+                            <th>说明</th>
+                            <th>类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>deviceId</td>
+                            <td>设备ID/SN</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>latitude</td>
+                            <td>纬度</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>longitude</td>
+                            <td>经度</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>locationTime</td>
+                            <td>时间</td>
+                            <td>string</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应示例</p>
+                <pre>
+                    {
+                        "msg": "操作成功",
+                        "code": 0,
+                        "data": {
+                        "deviceId": "01343863SKYD190",
+                        "latitude": "22.5309",
+                        "longitude": "114.0646",
+                        "locationTime": "2020-01-17 08:25:10 GMT"
+                        }
+                    }
+                </pre>
+                <br>
+            </div>
+            <!-- 2.2 查询设备位置历史轨迹 -->
+            <div class="apiItem w90">
+                <p class="text text_title">2.2 查询设备位置历史轨迹</p>
+                <p class="text">接口地址: /app/gps/queryDeviceLocationHistory</p> 
+                <p class="text">请求方式: GET</p>
+                <P class="text">请求参数</P>
+                <table class="table table-bordered apiTable">
+                    <thead>
+                        <tr>
+                            <th>参数名称</th>
+                            <th>说明</th>
+                            <th>数据类型</th>
+                            <th>必填</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>deviceId</td>
+                            <td>设备ID/SN</td>
+                            <td>string</td>
+                            <td>是</td>
+                        </tr>
+                        <tr>
+                            <td>pageNum</td>
+                            <td>页码</td>
+                            <td>string</td>
+                            <td>否</td>
+                        </tr>
+                        <tr>
+                            <td>pageSize</td>
+                            <td>页容量</td>
+                            <td>string</td>
+                            <td>否</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应状态</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>状态码</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>200</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>401</td>
+                            <td>Unauthorized</td>
+                        </tr>
+                        <tr>
+                            <td>403</td>
+                            <td>Forbidden</td>
+                        </tr>
+                        <tr>
+                            <td>404</td>
+                            <td>Not Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应参数</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>参数名称</th>
+                            <th>说明</th>
+                            <th>类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>deviceId</td>
+                            <td>设备ID/SN</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>latitude</td>
+                            <td>纬度</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>longitude</td>
+                            <td>经度</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>locationTime</td>
+                            <td>时间</td>
+                            <td>string</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text">响应示例</p>
+                <pre>
+                    {
+                        "code": 0,
+                        "total": 4,
+                        "rows": [
+                        {
+                            "deviceId": "01343863SKYD190",
+                            "latitude": "22.5309",
+                            "longitude": "114.0646",
+                            "locationTime": "2020-01-17 08:25:10 GMT"
+                        },
+                        {
+                            "deviceId": "01343863SKYD190",
+                            "latitude": "22.5325",
+                            "longitude": "114.0647",
+                            "locationTime": "2020-01-16 11:25:11 GMT"
+                        },
+                        {
+                            "deviceId": "01343863SKYD190",
+                            "latitude": "22.5311",
+                            "longitude": "114.0646",
+                            "locationTime": "2020-01-16 10:25:11 GMT"
+                        },
+                        {
+                            "deviceId": "01343863SKYD190",
+                            "latitude": "22.682483",
+                            "longitude": "114.272904",
+                            "locationTime": "2020-01-15 09:25:11 GMT"
+                        }
+                        ]
+                    }
+                </pre>
+            </div>
+        </div>
+    </div>  
+</body>
+</html>
+
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../js/common.js"></script>
+<script>
+    // 登录判断
+    var isLogin= JSON.parse(localStorage.getItem('userInfo'))
+        if(isLogin === null) {
+            window.location.href= '../Personal/login.html';
+        }
+
+</script>
+
+
+
+

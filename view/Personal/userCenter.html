@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="../../img/logo.ico">
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/regist.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/personal.css">
+    <title>新时空智能系统</title>
+</head>
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    .checkBtn {
+        background-color: #e6e6e6;
+    }
+
+    .layOut {
+        border-top: 1px solid #e7e7e7;
+        padding: 20px 30px 30px;
+    }
+
+    .layOut .dashboard .input-group-btn .btn {
+        margin-top: -2px;
+    }
+
+    .layOut .dashboard .moduleContainer .btns {
+        margin-top: 20px;
+    }
+
+    .layOut .dashboard .moduleContainer .equipmentTable {
+        cursor: pointer;
+        margin-top: 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+     /* 分页 */
+     .page_div {
+        margin: 30px 10px 20px 0;
+        text-align: center;
+        color: #666
+    }
+
+    /* 页数按钮样式 */
+
+    .page_div button {
+        display: inline-block;
+        min-width: 30px;
+        height: 28px;
+        cursor: pointer;
+        color: #666;
+        font-size: 13px;
+        line-height: 28px;
+        background-color: #f9f9f9;
+        border: 1px solid #dce0e0;
+        text-align: center;
+        margin: 0 4px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    #firstPage,
+    #lastPage,
+    #nextPage,
+    #prePage {
+        width: 50px;
+        color: #0073A9;
+        border: 1px solid #0073A9
+    }
+
+    #nextPage,
+    #prePage {
+        width: 70px
+    }
+
+    .page_div .current {
+        background-color: #0073A9;
+        border-color: #0073A9;
+        color: #FFF
+    }
+
+    /* 页面数量 */
+
+    .totalPages {
+        margin: 0 10px
+    }
+
+    .totalPages span,
+    .totalSize span {
+        color: #0073A9;
+        margin: 0 5px
+    }
+
+    /*button禁用*/
+
+    .page_div button:disabled {
+        opacity: .5;
+        cursor: no-drop
+    }
+</style>
+<body>
+    <header class="header clearfix">
+        <div class="topUp fl">
+            <a href="../Home/index.html" class="logo_bg">
+                <img src="../../img/logo.png" alt="">
+            </a>
+            <ul class="menusBox">
+                <li class="menus">
+                    <a href="../Home/index.html">首页</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">渠道管理</a>
+                </li> -->
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">设备管理</a>
+                </li> -->
+                <li class="menus">
+                    <a href="../Flow/flowList.html">流量管理</a>
+                </li>
+                <li class="menus">
+                    <a href="../Order/trafficRecord.html">订单管理</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">统计报表</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="topDown">
+            <span class="dropDown">
+                <span class="glyphicon glyphicon-bell"></span>
+                <span class="userName"></span>
+                <img class="userIcon"  src="../../img/userIcon07.png" alt="">
+            </span>
+            <div class="userBox">
+                <ul>
+                    <li>
+                        <a href="../Personal/userCenter.html">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="../Personal/login.html">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="layOut personCenter">
+            <div class="containerInner clearfix">
+                    <div class="left_nav fl">
+                        <ul class="navBox">
+                            <li class="navItem">
+                                <span class="title">
+                                    <img  src="../../img/icons/icon_zhanghu.png" alt="" class="icons">
+                                    <span class="text">账户管理</span>
+                                </span>
+                                <ul class="subMenus">
+                                    <li><a href="javascript:void(0)" class="active">基本信息</a></li>
+                                    <li><a href="./userAccount.html">用户管理</a></li>
+                                    <li><a href="./groupManagement.html">分组管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="navItem">
+                                <span class="title">
+                                    <img src="../../img/icons/icon_zichan.png" alt="" class="icons">
+                                    <span class="text">资产管理</span>
+                                </span>
+                                <ul class="subMenus">
+                                    <li><a href="javascript:void(0)">我的钱包</a></li>
+                                    <li><a href="javascript:void(0)">充值记录</a></li>
+                                </ul>
+                            </li>
+                            <li class="navItem">
+                                <span class="title">
+                                    <img src="../../img/icons/icon_xiaoxi.png" alt="" class="icons">
+                                    <span class="text">消息通知</span>
+                                </span>
+                                <ul class="subMenus">
+                                    <li><a href="./messageController.html">未读消息</a></li>
+                                    <li><a href="javascript:void(0)">已读消息</a></li>
+                                    <li><a href="javascript:void(0)">消息接收管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="navItem">
+                                <span class="title">
+                                    <img src="../../img/icons/icon_API.png" alt="" class="icons">
+                                    <span class="text">API管理</span>
+                                </span>
+                                <ul class="subMenus">
+                                    <li><a href="./apiList.html">API管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="navItem">
+                                <span class="title">
+                                    <img src="../../img/icons/icon_API.png" alt="" class="icons">
+                                    <span class="text">日志管理</span>
+                                </span>
+                                <ul class="subMenus">
+                                    <li><a href="javascript:void(0)">操作日志</a></li>
+                                    <li><a href="javascript:void(0)">异常日志</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right_content">
+                        <div class="contentBox">
+                            <div class="userInfo">
+                                <div class="userIcon">
+                                    <div class="uploadContainer fl">
+                                        <img src="../../img/userIcon07.png" alt="" >
+                                        <div class="uploadBox">
+                                            <input type="file" class="addImg">
+                                            <span class="fl text">修改头像</span>
+                                        </div>
+                                    </div>
+                                    <div class="userText">
+                                        <p class="itemText">
+                                            <span class="title">登录账号:</span>
+                                            <span class="text">邵先生test</span>
+                                            <span class="text">(您已通过实名认证)</span>
+                                        </p>
+                                        <!-- <p class="itemText">
+                                            <span class="title">账号ID:</span>
+                                            <span class="text">NTS_82110616</span>
+                                        </p> -->
+                                        <p class="itemText">
+                                            <span class="title">账号余额:</span>
+                                            <span class="text accountBalance">168.20 RMB</span>
+                                        </p>
+                                        <p class="itemText">
+                                            <span class="title">剩余可用流量:</span>
+                                            <span class="text accountFlow"></span>
+                                            <span class="title" style="margin-left: 12PX;">已消耗总流量:</span>
+                                            <span class="text useFlow">10 KB</span>
+                                        </p>
+                                        <p class="itemText">
+                                            <span class="title">注册时间:</span>
+                                            <span class="text">2019年12月26日 上午9:45:36</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bindInfo">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="w30">登录密码</td>
+                                            <td class="w50">建议您定期更换密码,设置一个包含字母、符号长度超过6位的密码</td>
+                                            <td class="w20">
+                                                <img src="../../img/icons/icon_gou.png" alt="">
+                                                <span class="text">已设置 | </span>
+                                                <span class="text">修改</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>手机绑定</td>
+                                            <td>您已绑定了手机186****9551</td>
+                                            <td>
+                                                <img src="../../img/icons/icon_gou.png" alt="">
+                                                <span class="text">已设置 | </span>
+                                                <span class="text">修改</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>邮箱绑定</td>
+                                            <td>您已绑定了邮箱shao****@ntsitech.com</td>
+                                            <td>
+                                                <img src="../../img/icons/icon_gou.png" alt="">
+                                                <span class="text">已设置 | </span>
+                                                <span class="text">修改</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>实名认证</td>
+                                            <td>您暂未完成个人实名认证</td>
+                                            <td>
+                                                <img src="../../img/icons/icon_jinggao.png" alt="">
+                                                <span class="text">未设置 | </span>
+                                                <span class="text">设置</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    </div>  
+</body>
+</html>
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../../lib/layer-v3.1.1/layer/layer.js"></script>
+<script src="../../lib/pageMe.js"></script>
+<script src="../../js/common.js"></script>
+<script>
+    $(function() {
+        // 登录判断
+        var isLogin= JSON.parse(localStorage.getItem('userInfo'))
+        if(isLogin === null) {
+            window.location.href= '../Personal/login.html';
+        }
+
+        getUserInfo();
+        // getCompanyInfo();
+        // getCompanyBalance();
+
+        // 获取企业信息
+        // function getCompanyInfo() {
+        //     var userId= JSON.parse(localStorage.getItem('userData')).userId;
+        //     $.ajax({
+        //         url: 'http://flow.ntsitech.com/nts/api/company/info?userId='+userId,
+        //         type: 'get',
+        //         headers: {
+        //             "X-NTS-Token": JSON.parse(localStorage.getItem('userData')).token
+        //         },
+        //         success: function(res) {
+        //             // console.log('获取数据成功');
+        //         }
+                
+        //     })
+        // }
+
+        // 获取账户余额
+        // function getCompanyBalance() {
+        //     $.ajax({
+        //         url: 'http://flow.ntsitech.com/nts/api/wallet/balance',
+        //         type: 'post',
+        //         headers: {
+        //             "X-NTS-Token": JSON.parse(localStorage.getItem('userData')).token
+        //         },
+        //         success: function(res) {
+        //             // console.log('获取数据成功');
+        //         }
+                
+        //     })
+        // }
+
+        // 获取个人信息
+        function getUserInfo() {
+            $.ajax({
+                url: 'http://flow.ntsitech.com/nts/api/user/getUserInfo',
+                type: 'get',
+                headers: {
+                    "X-NTS-Token": JSON.parse(localStorage.getItem('userData')).token
+                },
+                success: function(res) {
+                    // console.log('获取数据成功');
+                    $('.accountBalance').text(res.data.money + " RMB");
+                    $('.accountFlow').text(Math.ceil((res.data.surplusFlow)/1024) + " KB");
+                }
+                
+            })
+        }
+    })
+</script>

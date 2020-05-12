@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="../../img/logo.ico">
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/regist.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/personal.css">
+    <title>新时空智能系统</title>
+</head>
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    .checkBtn {
+        background-color: #e6e6e6;
+    }
+
+    .layOut {
+        border-top: 1px solid #e7e7e7;
+        padding: 20px 30px 30px;
+    }
+
+    .layOut .dashboard .input-group-btn .btn {
+        margin-top: -2px;
+    }
+
+    .layOut .dashboard .moduleContainer .btns {
+        margin-top: 20px;
+    }
+
+    .layOut .dashboard .moduleContainer .equipmentTable {
+        cursor: pointer;
+        margin-top: 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+     /* 分页 */
+     .page_div {
+        margin: 30px 10px 20px 0;
+        text-align: center;
+        color: #666
+    }
+
+    /* 页数按钮样式 */
+
+    .page_div button {
+        display: inline-block;
+        min-width: 30px;
+        height: 28px;
+        cursor: pointer;
+        color: #666;
+        font-size: 13px;
+        line-height: 28px;
+        background-color: #f9f9f9;
+        border: 1px solid #dce0e0;
+        text-align: center;
+        margin: 0 4px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    #firstPage,
+    #lastPage,
+    #nextPage,
+    #prePage {
+        width: 50px;
+        color: #0073A9;
+        border: 1px solid #0073A9
+    }
+
+    #nextPage,
+    #prePage {
+        width: 70px
+    }
+
+    .page_div .current {
+        background-color: #0073A9;
+        border-color: #0073A9;
+        color: #FFF
+    }
+
+    /* 页面数量 */
+
+    .totalPages {
+        margin: 0 10px
+    }
+
+    .totalPages span,
+    .totalSize span {
+        color: #0073A9;
+        margin: 0 5px
+    }
+
+    /*button禁用*/
+
+    .page_div button:disabled {
+        opacity: .5;
+        cursor: no-drop
+    }
+</style>
+<body>
+    <header class="header clearfix">
+        <div class="topUp fl">
+            <a href="../Home/index.html" class="logo_bg">
+                <img src="../../img/logo.png" alt="">
+            </a>
+            <ul class="menusBox">
+                <li class="menus">
+                    <a href="../Home/index.html">首页</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">渠道管理</a>
+                </li> -->
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">设备管理</a>
+                </li> -->
+                <li class="menus">
+                    <a href="../Flow/flowList.html">流量管理</a>
+                </li>
+                <li class="menus">
+                    <a href="../Order/trafficRecord.html">订单管理</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">统计报表</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="topDown">
+            <span class="dropDown">
+                <span class="glyphicon glyphicon-bell"></span>
+                <span class="userName"></span>
+                <img class="userIcon"  src="../../img/userIcon07.png" alt="">
+            </span>
+            <div class="userBox">
+                <ul>
+                    <li>
+                        <a href="../Personal/userCenter.html">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="../Personal/login.html">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="layOut personCenter">
+        <div class="containerInner clearfix">
+            <div class="left_nav fl">
+                <ul class="navBox">
+                    <li class="navItem">
+                        <span class="title">
+                            <img  src="../../img/icons/icon_zhanghu.png" alt="" class="icons">
+                            <span class="text">账户管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="./userCenter.html" class="">基本信息</a></li>
+                            <li><a href="./userAccount.html" class="">用户管理</a></li>
+                            <li><a href="./groupManagement.html">分组管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_zichan.png" alt="" class="icons">
+                            <span class="text">资产管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="javascript:void(0)">我的钱包</a></li>
+                            <li><a href="javascript:void(0)">充值记录</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_xiaoxi.png" alt="" class="icons">
+                            <span class="text">消息通知</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="./messageController.html" class="active">未读消息</a></li>
+                            <li><a href="javascript:void(0)">已读消息</a></li>
+                            <li><a href="javascript:void(0)">消息接收管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_API.png" alt="" class="icons">
+                            <span class="text">API管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="./apiList.html">API管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_API.png" alt="" class="icons">
+                            <span class="text">日志管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="javascript:void(0)">操作日志</a></li>
+                            <li><a href="javascript:void(0)">异常日志</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="right_content">
+                <div class="contentBox">
+                    <div class="bindInfo">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>企业编号</th>
+                                    <th>企业名称</th>
+                                    <th>业务负责人</th>
+                                    <th>负责人电话</th>
+                                    <th>负责人邮箱</th>
+                                    <th>信息内容</th>
+                                    <th>时间</th>
+                                    <!-- <th>操作</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>NTS_82110616</td>
+                                    <td>深圳新时空智能系统</td>
+                                    <td>邵先生</td>
+                                    <td>18603059551</td>
+                                    <td>shaoying@ntsitech.com</td>
+                                    <td style="color: red;">您的账户余额还剩10元,请及时充值</td>
+                                    <td>2020-02-05 21:41:30</td>
+                                    <!-- <td>
+                                        <button class="sendMessageBtn normalBtn">发送</button>
+                                        <button class="queryMessageBtn normalBtn">查询</button>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <!-- 发送消息到Device -->
+    <div class="sendMessage_dialog messageDialog" id="sendMessage_dialog">
+        <label for="deviceId_send" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- deviceId_send: -->
+                设备ID/SN:
+            </span>
+            <input type="text" id="deviceId_send" class="deviceItem_content deviceId_send fr" placeholder="请输入设备ID/SN">
+        </label>
+        <label for="messageBody" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- messageBody: -->
+                消息体:
+            </span>
+            <input type="text" id="messageBody" class="deviceItem_content messageBody fr" placeholder="请输入消息体">
+        </label>
+        <label for="messageBodyType" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- messageBodyType: -->
+                消息体类型:
+            </span>
+            <input type="text" id="messageBodyType" class="deviceItem_content messageBodyType fr" placeholder="0=ASCII 1=Binary">
+        </label>
+        <label for="messagePriority" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                消息优先级:
+            </span>
+            <input type="text" id="messagePriority" class="deviceItem_content messagePriority fr" placeholder="0=Non-urgent 1=Normal 2=Urgent">
+        </label>
+        <label for="messageSubject" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- messageSubject: -->
+                消息主题:
+            </span>
+            <input type="text" id="messageSubject" class="deviceItem_content messageSubject fr" placeholder="请输入消息主题">
+        </label>
+        <label for="networkId" class="deviceItem deviceItem3">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                网络ID:
+            </span>
+            <input type="text" id="networkId" class="deviceItem_content networkId fr" placeholder="6=L-Band IDP 9=Any available network">
+        </label>
+        <label for="sendTime" class="deviceItem deviceItem4">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- sendTime: -->
+                发送时间: 
+            </span>
+            <input type="text" id="sendTime" class="deviceItem_content sendTime fr" placeholder="请输入发送时间如: 202002011000">
+        </label>
+        <button class="confirmSend_btn optionBtn confirm_btn fr">确定</button>
+        <button class="cancelSend_btn optionBtn  cancel_btn fr">取消</button>
+    </div>
+
+    <!-- 查询消息 -->
+    <div class="queryMessage_dialog messageDialog" id="queryMessage_dialog">
+        <label for="deviceId_query" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- deviceId_query: -->
+                设备ID/SN:
+            </span>
+            <input type="text" id="deviceId_query" class="deviceItem_content deviceId_query fr" placeholder="请输入设备ID/SN">
+        </label>
+        <label for="beginMsgTime" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- beginMsgTime: -->
+                查询开始时间:
+            </span>
+            <input type="text" id="beginMsgTime" class="deviceItem_content beginMsgTime fr" placeholder="请输入查询开始时间">
+        </label>
+        <label for="endMsgTime" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- endMsgTime: -->
+                查询结束时间:
+            </span>
+            <input type="text" id="endMsgTime" class="deviceItem_content endMsgTime fr" placeholder="请输入查询结束时间">
+        </label>
+        <label for="pageNum" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                页码数:
+            </span>
+            <input type="text" id="pageNum" class="deviceItem_content pageNum fr" placeholder="请输入查询页码数">
+        </label>
+        <label for="pageSize" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- pageSize: -->
+                页容量:
+            </span>
+            <input type="text" id="pageSize" class="deviceItem_content pageSize fr" placeholder="请输入每页显示数据条数">
+        </label>
+        <button class="confirmQuery_btn optionBtn confirm_btn fr">确定</button>
+        <button class="cancelQuery_btn optionBtn  cancel_btn fr">取消</button>
+    </div>
+</body>
+</html>
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../../lib/layer-v3.1.1/layer/layer.js"></script>
+<script src="../../lib/pageMe.js"></script>
+<script src="../../js/common.js"></script>
+
+<script>
+    $(function() {
+
+        // 登录判断
+        var isLogin= JSON.parse(localStorage.getItem('userInfo'))
+        if(isLogin === null) {
+            window.location.href= '../Personal/login.html';
+        }
+        // (1.1) 点击发送按钮弹出发送信息窗
+        jQuery('.sendMessageBtn').on('click',function(){
+            layer.open({
+                type: 1,
+                title: '发送消息',
+                area: ['500px', '500px'], //宽高
+                content: jQuery('.sendMessage_dialog')
+            })
+        })
+        
+        // (1.2) 点击发送确定按钮,发送消息
+        jQuery('.confirmSend_btn').on('click',function(){
+            var sendMessageInfo= {
+                deviceId: jQuery('#deviceId_send').val(),       
+                messageBody: jQuery('#messageBody').val(),           
+                messageBodyType: jQuery('#messageBodyType').val(),        
+                messagePriority: jQuery('#messagePriority').val(),             
+                messageSubject: jQuery('#messageSubject').val() ,        
+                networkId: jQuery('#networkId').val(),
+                sendTime: jQuery('#sendTime').val()
+            }
+
+            var queryMessageInfo= {
+                deviceId: jQuery('#deviceId_send').val(),       
+                beginMsgTime: '',           
+                endMsgTime: '',        
+                pageNum: '',             
+                pageSize: '' 
+            }
+            queryMessageInfo= JSON.stringify(queryMessageInfo);    
+            sendMessageInfo= JSON.stringify(sendMessageInfo);
+            sendMessageToDevice(sendMessageInfo,queryMessageInfo);
+        })
+
+        // (1.3) 点击取消按钮 
+        jQuery('.cancelSend_btn').on('click',function(){
+            layer.closeAll();
+        })
+
+        // (1.4) 发送消息方法封装
+        function sendMessageToDevice(params_send,params_query){
+            jQuery.ajax({
+                url: baseUrl+'app/oae/sendMessage',
+                type: 'post',
+                contentType: 'application/json',
+                headers: {
+                    "token": JSON.parse(localStorage.getItem('userInfo')).token
+                },
+                data: params_send,
+                success: function(res) {
+                    if(res.code == 0) {
+                        layer.msg('消息发送成功',function(){
+                            queryMessageFromDevice(params_query)
+                        })
+                    }else {
+                        layer.msg(res.msg,function(){
+                            layer.closeAll();
+                        });
+                    }
+                },
+                error: function(err) {
+                    layer.msg(err.msg)
+                }
+            })
+        }
+        // (2.1) 点击查询按钮弹出查询信息窗
+        jQuery('.queryMessageBtn').on('click',function(){
+            layer.open({
+                type: 1,
+                title: '查询消息',
+                area: ['500px', '420px'], //宽高
+                content: jQuery('.queryMessage_dialog')
+            })
+        })
+        
+        // (2.2) 点击查询消息确定按钮,发送查询消息
+        jQuery('.confirmQuery_btn').on('click',function(){
+            var queryMessageInfo= {
+                deviceId: jQuery('#deviceId_query').val(),       
+                beginMsgTime: jQuery('#beginMsgTime').val(),           
+                endMsgTime: jQuery('#endMsgTime').val(),        
+                pageNum: jQuery('#pageNum').val(),             
+                pageSize: jQuery('#pageSize').val() 
+            }
+            queryMessageInfo= JSON.stringify(queryMessageInfo);
+            queryMessageFromDevice(queryMessageInfo);
+        })
+
+        // (2.3) 点击取消按钮 
+        jQuery('.cancelQuery_btn').on('click',function(){
+            layer.closeAll();
+        })
+
+        // (2.4) 查询消息方法封装
+        function queryMessageFromDevice(params){
+            jQuery.ajax({
+                url: baseUrl+'app/oae/retrieveMessages',
+                type: 'post',
+                contentType: 'application/json',
+                headers: {
+                    "token": JSON.parse(localStorage.getItem('userInfo')).token
+                },
+                data: params,
+                success: function(res) {
+                    if(res.code == 0) {
+                        layer.msg('消息查询成功')
+                    }else {
+                        layer.msg(res.msg,function(){
+                            layer.closeAll();
+                        });
+                    }
+                },
+                error: function(err) {
+                    layer.msg(err.msg)
+                }
+            })
+        }
+    })
+
+</script>

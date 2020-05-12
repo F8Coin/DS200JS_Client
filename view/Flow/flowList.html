@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/regist.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="icon" href="../../img/logo.ico">
+    <title>新时空智能系统</title>
+</head>
+
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    .checkBtn {
+        background-color: #e6e6e6;
+    }
+
+    .inputText {
+        height: 32px;
+        line-height: 32px;
+        width: 450px;
+        padding: 0px 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+    .layOut {
+        border-top: 1px solid #e7e7e7;
+        padding: 20px 30px 30px;
+    }
+
+    .layOut .dashboard .input-group-btn .btn {
+        margin-top: -2px;
+    }
+
+    .layOut .dashboard .moduleContainer .btns {
+        margin-top: 20px;
+    }
+
+    .layOut .dashboard .moduleContainer .equipmentTable {
+        cursor: pointer;
+        margin-top: 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+     /* 分页 */
+     .page_div {
+        margin: 30px 10px 20px 0;
+        text-align: center;
+        color: #666
+    }
+
+    /* 页数按钮样式 */
+
+    .page_div button {
+        display: inline-block;
+        min-width: 30px;
+        height: 28px;
+        cursor: pointer;
+        color: #666;
+        font-size: 13px;
+        line-height: 28px;
+        background-color: #f9f9f9;
+        border: 1px solid #dce0e0;
+        text-align: center;
+        margin: 0 4px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    #firstPage,
+    #lastPage,
+    #nextPage,
+    #prePage {
+        width: 50px;
+        color: #0073A9;
+        border: 1px solid #0073A9
+    }
+
+    #nextPage,
+    #prePage {
+        width: 70px
+    }
+
+    .page_div .current {
+        background-color: #0073A9;
+        border-color: #0073A9;
+        color: #FFF
+    }
+
+    /* 页面数量 */
+
+    .totalPages {
+        margin: 0 10px
+    }
+
+    .totalPages span,
+    .totalSize span {
+        color: #0073A9;
+        margin: 0 5px
+    }
+
+    /*button禁用*/
+
+    .page_div button:disabled {
+        opacity: .5;
+        cursor: no-drop
+    }
+
+    /* 条件查询组件 */
+    .layOut .queryBox .inputBox{
+        height: 36px;
+        width: 320px;
+        line-height: 36px;
+        padding: 0px 6px;
+        border: 1px solid #e7e7e7;
+    }
+
+    .layOut .queryBox .inputBox .inputText {
+        border: none;
+    } 
+
+    .layOut .queryBox .inputBox .searchIcon {
+        font-size: 20px;
+        margin-top: 4px;
+    }
+
+    .layOut .queryBox>.dateSelector {
+        margin-left: 20px;
+        position: relative;
+    }
+
+    .layOut .queryBox>.dateSelector>.dateInput {
+        width: 200px;
+    }
+
+    .layOut .queryBox>.searchOptionBtn {
+        margin-left: 30px;
+    }
+</style>
+
+<body>
+    <header class="header clearfix">
+        <div class="topUp fl">
+            <a href="../Home/index.html" class="logo_bg">
+                <img src="../../img/logo.png" alt="">
+            </a>
+            <ul class="menusBox">
+                <li class="menus">
+                    <a href="../Home/index.html">首页</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">渠道管理</a>
+                </li>
+                <li class="menus">
+                    <a href="javascript:void(0)">设备管理</a>
+                </li> -->
+                <li class="active menus">
+                    <a href="../Flow/flowList.html">流量管理</a>
+                </li>
+                <li class="menus">
+                    <a href="../Order/trafficRecord.html">订单管理</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">统计报表</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="topDown">
+            <span class="dropDown">
+                <span class="glyphicon glyphicon-bell"></span>
+                <span class="userName"></span>
+                <img class="userIcon"  src="../../img/userIcon07.png" alt="">
+            </span>
+            <div class="userBox">
+                <ul>
+                    <li>
+                        <a href="../Personal/userCenter.html">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="../Personal/login.html">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="layOut flowList">
+        <span class="queryBox">
+            <span class="input-group fl">
+                <input type="text" class="inputText searchBtn" id="deviceSn" placeholder="请输入搜索关键字" aria-describedby="basic-addon2">
+            </span>
+            <span class="dateSelector">
+                <span class="textTitle">开始时间:</span>
+                <input type="text" class="inputText dateInput" id="startDate" autocomplete="off" placeholder="选择开始时间">
+            </span>
+            <span class="dateSelector">
+                <span class="textTitle">结束时间:</span>
+                <input type="text" class="inputText dateInput" id="endDate" autocomplete="off" placeholder="选择结束时间">
+            </span>
+            <button class="btn btn-default searchOptionBtn" type="button" id="getDeviceFlow">查询</button>
+            <button class="btn btn-default resetBtn" type="button" id="resetBtn" style="background-color: #53868B;color: #fff;margin-right: 12px;">重置</button>
+            <button class="btn btn-default exportDataBtn" type="button" id="exportData" style="background-color: #53868B;color: #fff;margin-right: 12px;">导出Excel</button>
+            <button class="btn btn-default flowBtn buyBtn" type="button" onclick="">流量购买</button>
+            <button class="btn btn-default entryDataBtn" type="button" id="entryData" style="position: relative;background-color: #53868B;color: #ffffff;">
+                <span class="title fl">导入设备SN</span>
+                <input type="file" class="" onchange="importf(this)" style="position:absolute;left: 0px;opacity: 0;width: 100px;height: 34px;top: -3px;">
+            </button>
+        </span>
+        <div class="mainBox">
+            <div class="dashboard">
+                <div class="moduleContainer">
+                    <div class="equipmentTable">
+                        <div class="topBar"></div>
+                        <table class="table table-striped table-hover tableBox">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>设备SN</th>
+                                    <th>运营商</th>
+                                    <th>主账号</th>
+                                    <th>子账号</th>
+                                    <th>计费模式</th>
+                                    <th>4G发送数据</th>
+                                    <th>4G接收数据</th>
+                                    <th>卫星发送数据</th>
+                                    <th>卫星接收数据</th>
+                                    <th>消耗总流量</th>
+                                    <th>统计时间</th> 
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="flowList">
+                                <!-- 流量记录列表数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="page" class="page_div"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+    <!-- (1) 购买弹窗 -->
+    <div class="buyBox" id="buyBox" style="display: none">
+        <p class="formItem">
+            企业名称: <span class="companyName">深圳新时空智能系统</span>
+        </p>
+        <p class="formItem">
+            企业编号: <span class="deviceType">NTS_82110616</span>
+        </p>
+        <p class="formItem">
+            流量数量: <input type="text" class="flowNum" placeholder="请输入购买流量数据量"> <span class="addText">KB</span>
+        </p>
+        <div class="optionBtns">
+            <a href="javascript:void(0)" class="confirmBtn" style="background-color: #1890ff;color: #ffffff;">立即购买</a>
+        </div>
+    </div>
+
+    <!-- (2) 支付弹窗 -->
+    <div class="codeQr" id="codeBox" style="display: none">
+        <div id="code"></div>
+        <p class="text"><img class="icon" src="../../img/weChat_pay.jpg" alt=""> 微信支付</p>
+    </div>
+</body>
+</html>
+
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../lib/jquery.qrcode.min.js"></script>
+<script src="../../lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../../lib/layer-v3.1.1/layer/layer.js"></script>
+<script src="../../lib/pageMe.js"></script>
+<script src="../../lib/exportDataToExcel/xlsx.full.min.js"></script>
+<script src="../../js/common.js"></script>
+<script>
+   $(function(){
+        // 登录判断
+        var isLogin= JSON.parse(localStorage.getItem('userInfo'))
+        if(isLogin === null) {
+            window.location.href= '../Personal/login.html';
+        }
+
+        // 流量查询登录接口调用
+        loginFlow();
+        function loginFlow() {
+            var paramsInfo= {
+                username: 'ntstest',
+                password: '123456'
+            }
+            paramsInfo= JSON.stringify(paramsInfo)
+            $.ajax({
+                url: 'http://flow.ntsitech.com/nts/api/auth/login',
+                type: 'post',
+                data: paramsInfo,
+                contentType: 'application/json',
+                success: function(res){
+                    if(res.code == 0) {
+                        var userData= JSON.stringify(res.data);
+                        localStorage.setItem('userData',userData);
+                        // console.log(res.data.token);
+                        getDataSumList(1,res.data.token,'',1,12,'','');
+                    }else {
+                        // layer.msg(res.msg);
+                    }
+                }
+            })
+        }
+
+
+        // 卫星流量统计列表
+        function getDataSumList(isPage,token,deviceSn,pageNum,pageSize,startTime,endTime,isExport){
+            $.ajax({
+                // url:  'http://192.168.1.9:8080/nts/api/flow/satAggSum?deviceSn='+deviceSn +'&pageNum='+pageNum+'&pageSize='+pageSize+'&startDate='+startTime+'&overDate='+endTime,
+                url:  'http://flow.ntsitech.com/nts/api/flow/satAggSum?deviceSn='+deviceSn +'&pageNum='+pageNum+'&pageSize='+pageSize+'&startDate='+startTime+'&overDate='+endTime,
+                type: 'GET',
+                headers: {
+                    "X-NTS-Token": token
+                },
+                success: function(res){
+                    if(res.code == "0"){
+                        // 分页
+                        if(isPage == "1") {
+                            if(!pageSize) {
+                                pageSize= 12
+                            }
+                            var totalPage= Math.ceil(res.total/pageSize);
+                            var totalList= res.total;
+                            $("#page").paging({
+                                pageNum: 1, // 当前页面
+                                totalNum: totalPage, // 总页码
+                                totalList: totalList, // 记录总数量
+                                callback: function (currentNum) { //回调函数 currentNum当前页码数
+                                    getDataSumList(2,token,"",currentNum,pageSize,'','');
+                                }
+                            });
+                            var currentPageData= {rows: []};
+                            currentPageData.rows= res.rows.slice(0,12);
+                            renderFlowList(currentPageData,1,pageSize);
+                        }else {
+                            renderFlowList(res,pageNum,pageSize);
+                        };
+
+                        // 判断是否需要导出数据
+                        if(isExport == "1") {
+                            // 获取当前时间
+                            var nowDate= new Date();
+                            var nowDateStr= DateToStr(nowDate); // 当前本地时间
+
+                            var aoa = [
+                                // ['序号', '设备SN', '运营商', '主账号', '子账号', '计费模式', '卫星发送数据','卫星接收数据','消耗总流量','统计时间','导出时间'],
+                                ['序号', '设备SN', '运营商', '主账号', '子账号', '计费模式','4G发送数据','4G接收数据','卫星发送数据','卫星接收数据','消耗总流量','导出时间'],
+                            ];
+                            for (let i = 0; i < res.rows.length; i++) {
+                                if(!(res.rows[i].dataMo)) {
+                                    res.rows[i].dataMo = 0
+                                }
+                                if(!(res.rows[i].dataMt)) {
+                                    res.rows[i].dataMt = 0
+                                }
+                                // aoa[(i+1)]= [i+1,res.rows[i].subscriberId,res.rows[i].carrier,res.rows[i].account,res.rows[i].subaccount,res.rows[i].pricePlan,res.rows[i].dataMo + ' B',res.rows[i].dataMt + ' B',Number(res.rows[i].dataMo +res.rows[i].dataMt ) + ' B',res.rows[i].statisticsTime,nowDateStr]
+                                aoa[(i+1)]= [i+1,res.rows[i].subscriberId,res.rows[i].carrier,res.rows[i].account,res.rows[i].subaccount, res.rows[i].pricePlan,'0 B','0 B',res.rows[i].dataMo + ' B',res.rows[i].dataMt + ' B',Number(res.rows[i].dataMo +res.rows[i].dataMt ) + ' B',nowDateStr]
+                                
+                            }
+
+                            var sheet = XLSX.utils.aoa_to_sheet(aoa);
+                            openDownloadDialog(sheet2blob(sheet), 'NTS_Billing.xlsx');
+                        }
+                                    
+                    }else {
+                        layer.msg(res.msg);
+                    }
+                } 
+            })
+        }   
+
+        // 渲染流量统计列表记录
+        function renderFlowList(res,pageNum,pageSize) {
+            $('#flowList').empty();
+            for (let i = 0; i < res.rows.length; i++) { 
+                var ftpItem= ' <tr>'+
+                                    '<td>'+((pageNum-1)*pageSize+i+1)+'</td>'+
+                                    // '<td>'+(i+1)+'</td>'+
+                                    '<td>'+res.rows[i].subscriberId+'</td>'+
+                                    '<td>'+res.rows[i].carrier+'</td>'+
+                                    '<td>'+res.rows[i].account+'</td>'+
+                                    '<td>'+res.rows[i].subaccount+'</td>'+
+                                    '<td>'+res.rows[i].pricePlan+'</td>'+
+                                    '<td>'+(res.rows[i].smsMo === null?"0":res.rows[i].smsMo)+' B</td>'+
+                                    '<td>'+(res.rows[i].smsMt === null?"0":res.rows[i].smsMt)+' B</td>'+
+                                    '<td>'+(res.rows[i].dataMo === null?"0":res.rows[i].dataMo)+' B</td>'+
+                                    '<td>'+(res.rows[i].dataMt === null?"0":res.rows[i].dataMt)+' B</td>'+
+                                    '<td>'+Number((res.rows[i].dataMt === null?"0":res.rows[i].dataMt)+(res.rows[i].dataMo === null?"0":res.rows[i].dataMo))+' B</td>'+
+                                    // '<td>'+(res.rows[i].dataBoth === null?"0":res.rows[i].dataBoth)+' B</td>'+
+                                    // '<td>'+(res.rows[i].voiceMo === null?"0":res.rows[i].voiceMo)+' B</td>'+
+                                    // '<td>'+(res.rows[i].voiceMt === null?"0":res.rows[i].voiceMt)+' B</td>'+
+                                    // '<td>'+res.rows[i].usageTime+'</td>'+
+                                    // '<td>'+res.rows[i].importTime+'</td>'+
+                                    '<td>'+GMTtoStr(res.rows[i].statisticsTime)+'</td>'+
+                                    // '<td>'+res.rows[i].createTime+'</td>'+
+                                    '<td>'+
+                                        '<a href="./flowInfo.html?deviceSn='+res.rows[i].subscriberId+'">查看详情</a>'+
+                                        '<a href="javascript:void(0)" style="margin-left:8px">停用</a>'+
+                                    '</td>'+    
+                                '</tr>'
+                $('#flowList').append(ftpItem);   
+                
+            }   
+        } 
+
+        //  重置按钮
+        $('#resetBtn').on('click',function() {
+            var deviceSn= $('#deviceSn').val('');
+            var beginDate= $('#startDate').val('');
+            var endDate= $('#endDate').val('');
+            getDataSumList(1,JSON.parse(localStorage.getItem('userData')).token,'','','',' ',' ');
+        })
+
+        // 导出流量exportData
+        $('.exportDataBtn').on('click',function(){
+            
+            //  对查询出来的数据进行导出
+            var deviceSn= $('.searchBtn').val();
+            var beginDate= $('#startDate').val();
+            var endDate= $('#endDate').val();
+            var beginDate1 ;
+            var endDate1 ;
+            if(!beginDate) {
+                beginDate1 = "";
+            }else {
+                beginDate1 = StrtoGMT(beginDate);
+            }
+
+            if(!endDate) {
+                endDate1 = "";
+            }else {
+                endDate1 = StrtoGMT(endDate);
+            }
+
+            if(!deviceSn) {
+                deviceSn = "";
+            }
+
+            getDataSumList(1,JSON.parse(localStorage.getItem('userData')).token,deviceSn,'','',beginDate1,endDate1,1); 
+
+        })
+
+
+        // 点击查询流量
+        $('#getDeviceFlow').on('click',function() {
+            var deviceSn= $('.searchBtn').val();
+            var beginDate= $('#startDate').val();
+            var endDate= $('#endDate').val();
+            var beginDate1 ;
+            var endDate1 ;
+            if(!beginDate) {
+                beginDate1 = "";
+            }else {
+                beginDate1 = StrtoGMT(beginDate);
+            }
+
+            if(!endDate) {
+                endDate1 = "";
+            }else {
+                endDate1 = StrtoGMT(endDate);
+            }
+
+            if(!deviceSn) {
+                deviceSn = "";
+            }
+
+            getDataSumList(1,JSON.parse(localStorage.getItem('userData')).token,deviceSn,1,12,beginDate1,endDate1); // 点击查询
+        })
+
+        // 点击流量购买
+        $('.buyBtn').on('click',function(){
+            layer.open({
+                type: 1,
+                title:'流量购买',
+                content: jQuery("#buyBox"),
+                area: ['420px', '280px'], //宽高
+            });
+            var companyName= jQuery(this).attr('account');
+            var deviceId= jQuery(this).attr('deviceSn');
+            var deviceType= jQuery(this).attr('deviceType');
+            var ids= jQuery(this).attr('ids')
+            jQuery('.formItem>.companyName').text(companyName);
+            jQuery('.formItem>.deviceType').text(deviceType);
+            jQuery('.formItem>.deviceId').text(deviceId);
+            jQuery('.ids').text(ids);
+        })
+
+        //  提交订单
+        $('.optionBtns>.confirmBtn').on('click',function(){
+            var ids= "1";
+            // var ids= jQuery('.ids').text();
+            var flowNum= jQuery('.formItem>.flowNum').val()
+            jQuery.ajax({
+                // url: 'http://flow.ntsitech.com/nts/api/order/add?deviceId='+ids+'&flowPlansId=1&flowNumber='+flowNum, // 设备id提交购买订单
+                url: 'http://flow.ntsitech.com/nts/api/order/buyFlow?flowPlansId=1&flowNumber='+flowNum,
+                type: 'get',
+                headers: {
+                    "X-NTS-Token": JSON.parse(localStorage.getItem('userData')).token
+                },
+                success: function(res){
+                    if(res.code == "0"){
+                        layer.closeAll();
+                        weChat_pay(res.data.orderCode);
+                    }
+                } 
+            })
+        })
+
+        // 微信支付
+        function weChat_pay(orderCode){
+            jQuery.ajax({
+                url: 'http://flow.ntsitech.com/nts/api/wxPay/flowOrder?orderCode='+orderCode,
+                headers: {
+                    "X-NTS-Token": JSON.parse(localStorage.getItem('userData')).token
+                },
+                success: function(res){
+                    if(res.code == "0"){
+                        // console.log('调用微信支付');
+                        jQuery('#code').empty();
+                        jQuery('#code').qrcode(res.data.codeUrl);
+                        layer.open({
+                            type: 1,
+                            title:'订单支付',
+                            content: jQuery("#codeBox"),
+                            area: ['420px', '420px'], //宽高
+                        })
+                        weChat_result(orderCode);
+                    }else {
+                        layer.msg(res.msg);
+                    } 
+                }
+            })
+        }
+
+        // 微信支付结果查询
+        function weChat_result(orderCode){
+            jQuery.ajax({
+                url: 'http://flow.ntsitech.com/nts/api/pay/end?orderCode='+orderCode,
+                type: 'get',
+                headers: {
+                    "X-NTS-Token": JSON.parse(localStorage.getItem('userData')).token
+                },
+                success: function(res){
+                    if(res.code == '0'){
+                        // 支付成功,跳转页面
+                        window.location.href= '../Order/trafficRecord.html';
+                        layer.closeAll();
+                    }else {
+                        weChat_result(orderCode)
+                    }
+                }
+            })
+        } 
+
+        
+        //  初始化起止日期选择器
+        $('#startDate').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm:ss',
+            locale: moment.locale('zh-cn')   
+        })
+
+        $('#endDate').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm:ss',
+            locale: moment.locale('zh-cn')
+        })        
+
+   })
+
+
+</script>
+
+

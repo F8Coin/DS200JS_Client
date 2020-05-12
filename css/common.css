@@ -1,0 +1,207 @@
+.w20 {
+    width: 20%;
+}
+
+.w30 {
+    width: 30%;
+}
+
+.w50 {
+    width: 50%;
+}
+
+.w80 {
+    width: 80%;
+}
+
+.w85 {
+    width: 85%;
+}
+
+.w90 {
+    width: 90%;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.isalarm {
+    display: none;
+}
+
+/* 在线状态 */
+.online {
+    color: rgb(0, 208, 83);
+}
+
+/* 离线状态 */
+.offline {
+    color: rgb(245, 103, 103);
+}
+
+
+/* header头部公共样式 */
+
+.header {
+    height: 42px;
+    line-height: 42px;
+    background-color: #fff;
+    /* background-color:#066EB7; */
+    color: #066EB7;
+    padding-left: 12px;
+    font-size: 0;
+    margin-bottom: 6px;
+}
+
+.header .topUp {
+    height: 42px;
+    position: relative;
+}
+
+.header .topUp .logo_bg {
+    position: absolute;
+    top: 0px;
+    height: 32px;
+}
+
+.header .topUp .logo_bg>img {
+    height: 32px;
+}
+
+.header .topUp .menusBox {
+    display: inline-block;
+    margin: 0px;
+    margin-left: 120px;
+    font-size: 0px;
+}
+
+.header .menus {
+    display: inline-block;
+    height: 42px;
+    text-align: center;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.header .menus>a {
+    font-size: 16px;
+    color: #337ab7;
+    display: inline-block;
+}
+
+.header .menus:hover {
+    background-color: #337ab7;
+}
+
+.header li.active {
+    background-color: #337ab7;
+}
+
+.header li.active>a {
+    color: #fff;
+}
+
+.header .menus:hover>a {
+    color: #fff;
+}
+
+.header .topDown {
+    width: 120px;
+    height: 42px;
+    color: #066BE7;
+    position: absolute;
+    right: 0px;
+    z-index: 999;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.header .topDown .userBox {
+    /* width: 120px; */
+    background-color: #fff;
+    border-radius: 2px;
+    text-align: center;
+    margin-right: 20px;
+    display: none;
+}
+
+.header .topDown:hover .userBox {
+    display: block;
+}
+
+.header .topDown .userBox>ul>li {
+    border: 1px solid #e7e7e7;
+}
+
+.header .topDown .dropDown .userIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-left: 6px;
+}
+
+/* .header .topDown .userIcon {
+    margin-left: 8px;
+} */
+
+
+/* 创建账户弹窗样式 */
+.requireFlag {
+    color: red;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.messageDialog {
+    padding: 30px 20px;
+    display: none;
+}
+
+.messageDialog .deviceItem {
+    margin-bottom: 12px;
+} 
+
+.messageDialog .deviceItem_title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 32px;
+    display: inline-block;
+    width: 100px;
+}
+
+.messageDialog .deviceItem_content {
+    height: 32px;
+    width: 325px;
+    line-height: 32px;
+    margin-left: 12px;
+    border-radius: 2px;
+    border: 1px solid #dcdfe6;
+}
+
+.messageDialog .deviceItem_content::placeholder {
+    padding: 0px 6px;
+}
+
+.messageDialog .optionBtn {
+    width: 6.25rem;
+    height: 2.625rem;
+    line-height: 2.625rem;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+.messageDialog .cancel_btn {
+    color: black;
+    background-color: antiquewhite;
+}
+
+
+.messageDialog .confirm_btn {
+    background-color: #1890ff;
+    margin-right: 20px;
+    margin-left: 30px;
+} 
+

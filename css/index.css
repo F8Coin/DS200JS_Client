@@ -1,0 +1,509 @@
+
+body,
+html,
+#allmap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: "微软雅黑";
+    background-color: #53868B;
+    /* background-color: #066BE7; */
+}
+
+.anchorBL {
+    display: none !important;
+}
+
+.BMap_Marker img {
+    width: 32px !important;
+}
+
+.dropdown-menu {
+    top: 40px !important; /* 选择菜单框位置  */
+    padding: 0px;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#dropdownMenuBox .dropdown-menu {
+    display: none;
+}
+
+#menusBox>li {
+    width: 100%;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+#menusBox>li>a {
+    height: 32px;
+    line-height: 32px;
+}
+
+#menusBox>li>.menuBox_2>li {
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+    padding-left: 40px;
+}
+
+#menusBox>li>.menuBox_2>li:hover {
+    background-color: #f5f5f5;
+}
+
+.showMenu {
+    display: block !important;
+}
+
+/* 分页 */
+.page_div {
+    margin: 60px 10px 20px 0;
+    text-align: center;
+    color: #666
+}
+
+/* 页数按钮样式 */
+
+.page_div button {
+    display: inline-block;
+    min-width: 30px;
+    height: 28px;
+    cursor: pointer;
+    color: #666;
+    font-size: 13px;
+    line-height: 28px;
+    background-color: #f9f9f9;
+    border: 1px solid #dce0e0;
+    text-align: center;
+    margin: 0 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#firstPage,
+#lastPage,
+#nextPage,
+#prePage {
+    width: 50px;
+    color: #0073A9;
+    border: 1px solid #0073A9
+}
+
+#nextPage,
+#prePage {
+    width: 70px
+}
+
+.page_div .current {
+    background-color: #0073A9;
+    border-color: #0073A9;
+    color: #FFF
+}
+
+/* 页面数量 */
+
+.totalPages {
+    margin: 0 10px
+}
+
+.totalPages span,
+.totalSize span {
+    color: #0073A9;
+    margin: 0 5px
+}
+
+/*button禁用*/
+
+.page_div button:disabled {
+    opacity: .5;
+    cursor: no-drop
+}
+
+
+/* 地图部分自定义 */
+#allmap .BMap_stdMpType1 {
+    top: 40px !important;
+}
+
+/* 左边车辆列表信息 */
+
+.moveItem .removeBar {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 20px;
+    cursor: move;
+    position: relative;
+    border-bottom: 2px solid #e7e7e7;
+    background-color: #f7f7f7;
+}
+
+.moveItem .removeBar .optionIcon {
+    font-size: 14px;
+    line-height: 42px;
+    font-weight: normal;
+    padding: 0 6px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.4)
+}
+
+.moveItem .removeBar .optionIcon:hover {
+    color: #53868B;
+}
+
+.moveItem .removeConten {
+    min-height: 880px;
+    position: relative;
+    background-color: #e7e7e7e7;
+}
+
+.moveItem .removeBar .flagText {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    color: #ffffff;
+    padding: 0 4px;
+    margin-left: 4px;
+    position: absolute;
+    top: 11px;
+    background-color: #53868B;
+}
+
+
+.leftBox {
+    width: 50%;
+    float: left;
+}
+
+.leftBox .leftBox_inner {
+    margin-right: 4px;
+    background-color: #ffffff;
+}
+
+.leftBox_inner .removeConten {
+    padding: 30px 20px 12px;
+}
+
+.leftBox_inner .removeConten .menusIcon {
+    font-size: 21px;
+    line-height: 36px;
+    float: left;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.leftBox_inner .removeConten .dropdown-menu>li>a>span {
+    font-size: 12px;
+    padding-right: 6px;
+}
+
+.leftBox_inner .removeConten .searchContainer {
+    font-size: 0px;
+}
+
+.leftBox_inner .removeConten .searchBox {
+    height: 36px;
+    width: 80%;
+    border: 1px solid #e7e7e7;
+    background-color: #ffffff;
+    display: inline-block;
+}
+
+.leftBox_inner .removeConten .search_device {
+    width: 6%;
+    height: 34px;
+    line-height: 34px;
+    background-color: #53868B;
+    color: #fff;
+    border-radius: 2px;;
+    margin-top: 2px;
+}
+
+.leftBox_inner .removeConten .add_device {
+    width: 8%;
+    height: 34px;
+    line-height: 34px;
+    background-color: #53868B;
+    color: #fff;
+    border-radius: 2px;;
+    margin-top: 2px;
+}
+
+.leftBox_inner .removeConten .searchBox>input {
+    width: 100%;
+    height: 34px;
+    line-height: 36px;
+    padding-left: 20px;
+}
+
+.leftBox_inner .removeConten .searchIcon {
+    width: 45px;
+    height: 36px;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+    float: right;
+    cursor: pointer;
+}
+
+.leftBox_inner .removeConten .tableBox {
+    margin-top: 42px;
+    overflow: auto;
+} 
+
+.leftBox_inner .tableBox>thead>tr {
+    background-color: #f5f5f5;
+}
+
+.leftBox_inner .tableBox>thead>tr>th,
+.tableBox>thead>tr>th {
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+}
+
+.leftBox_inner .tableBox>tbody>tr {
+    cursor: pointer;
+}
+
+.leftBox_inner .tableBox>tbody>tr:hover {
+    background-color: #DCDCDC !important;
+}
+
+.leftBox_inner .tableBox>tbody>tr:nth-child(2n) {
+    background-color: #f1f1f1;
+}
+
+.leftBox_inner .tableBox>tbody>tr>td,
+.tableBox>tbody>tr>td {
+    line-height: 48px;
+    padding: 0px;
+    text-align: center;
+}
+
+.leftBox_inner .tableBox>tbody>tr>td:nth-child(1),td:nth-child(2){
+    text-align: center;
+}
+
+.leftBox_inner .tableBox>tbody>tr>td:last-child{
+    text-align: center;
+}
+
+
+.leftBox_inner .tableBox>tbody>tr>td>img {
+    margin-right: 4px;
+}
+
+#tbodyBox .recordBtn {
+    margin-left: 12px;
+}
+
+#pageBox {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 60px;
+}
+
+.rightBox {
+    width: 50%;
+    float: right;
+
+}
+
+.rightBox .moveItem .search {
+    width: 360px;
+    height: 36px;
+    border: 1px solid #e7e7e7;
+    position: absolute;
+    top: 120px;
+    margin-left: 170px;
+    z-index: 999;
+    background-color: #ffffff;
+}
+
+.rightBox .moveItem .search>input {
+    width: 300px;
+    height: 34px;
+    line-height: 36px;
+    padding-left: 20px;
+}
+
+.rightBox .moveItem .search>span {
+    line-height: 36px;
+    padding-right: 16px;
+    padding-left: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.rightBox .moveItem .view {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    background-color: #ffffff;
+    right: 10px;
+    top: 226px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#switchView,
+#closeView {
+    font-size: 14px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+#allmap {
+    height: 880px;
+}
+
+
+/* 流量购买弹窗 */
+#buyBox {
+    padding: 10px 30px 20px;
+    font-size: 16px;
+}
+
+#buyBox .formItem {
+    margin: 20px 0px;
+    font-size: 14px;
+}
+
+#buyBox .formItem .flowNum {
+    padding-bottom: 4px;
+    border-bottom: 1px solid #cccccc;
+}
+
+#buyBox .formItem .addText {
+    color: #999999;
+}
+
+#buyBox>.optionBtns {
+    margin-top: 40px;
+    text-align: right;
+}
+
+#buyBox>.optionBtns>.confirmBtn {
+    padding: 6px 12px;
+    color: #337ab7;
+    border: 1px solid #337ab7;
+}
+
+/* 流量支付弹窗 */
+#code {
+    text-align: center;
+    padding-top: 50px;
+}
+
+#codeBox .text {
+    text-align: center;
+    font-size: 22px;
+    padding-top: 6px;
+}
+
+#codeBox .text .icon {
+    width: 60px;
+}
+
+
+/*  添加设备弹窗样式 */
+.requireFlag {
+    color: red;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.addDevice_dialog {
+    padding: 30px 20px;
+}
+
+.addDevice_dialog .deviceItem {
+    margin-bottom: 12px;
+} 
+
+.addDevice_dialog .deviceItem_title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 32px;
+    display: inline-block;
+    width: 120px;
+}
+
+.addDevice_dialog .deviceItem_content {
+    height: 32px;
+    width: 300px;
+    line-height: 32px;
+    margin-left: 12px;
+    border-radius: 2px;
+    border: 1px solid #dcdfe6;
+}
+
+.addDevice_dialog .deviceItem_content::placeholder {
+    padding: 0px 6px;
+}
+
+.addDevice_dialog .optionBtn {
+    width: 7.5rem;
+    height: 2.625rem;
+    line-height: 2.625rem;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+.addDevice_dialog .cancel_btn {
+    color: black;
+    background-color: antiquewhite;
+}
+
+
+.addDevice_dialog .confirm_btn {
+    background-color: #1890ff;
+    margin-right: 20px;
+    margin-left: 30px;
+} 
+
+
+/* 流量查询 */
+
+.flowList .queryBox .flowBtn {
+    margin-left: 6px;
+}
+
+.flowList .queryBox .searchOptionBtn,
+.flowList .queryBox .flowBtn{
+    color: #fff;
+    background-color: #53868B;
+}
+
+/* 轨迹回放按钮 */
+#playBack {
+    width: 80px;
+    text-align: center;
+    border: 1px solid #e7e7e7;
+    margin-right: 6px;
+    background-color: #538688;
+    color: #fff;
+}
+
+/*  设置电子围栏窗口位置 */
+.BMapLib_Drawing  {
+    position: absolute;
+    right: 126px !important;
+}
+
+/* 查看报警信息按钮 */
+#warnInfoBtn {
+    color: rgb(245, 103, 103);
+    margin-left: 8px;
+}

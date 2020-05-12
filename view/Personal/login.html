@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../css/regist.css">  
+    <link rel="stylesheet" href="../../css/regLogin.css">
+    <link rel="icon" href="../../img/logo.ico">
+    <title>新时空智能系统</title>
+</head>
+<body>
+    <div class="layout">
+        <div class="containerBox">
+            <p class="title">新时空管理系统</p>
+            <form action="" class="loginForm">
+                账号：<input type="text" placeholder="请输入账号" class="account userInfo" autofocus> 
+                密码：<input type="password" placeholder="请输入密码" class="password userInfo" id="triggleEnter">
+                <a href="javascript:void(0)" class="submitBtn" id="loginBtn">登陆</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../lib/layer-v3.1.1/layer/layer.js"></script>
+<script src="../../js/common.js"></script>
+<script>
+    $(function(){
+        
+        //  登录方法
+        function loginFun(par){            
+            $.ajax({
+                url: baseUrl+'app/oae/login',
+                type: 'post',
+                data: par,
+                contentType: 'application/json',
+                success: function(res){
+                    if(res.code == 0) {
+                        var userInfoData= JSON.stringify(res.data);
+                        localStorage.setItem('userInfo',userInfoData);
+                        window.location.href= '../Home/index.html';
+                    }else {
+                        layer.msg(res.msg);
+                    }
+                }
+            })
+        }
+
+        //  点击提交
+        $("#loginBtn").click(function(){
+            var paramsData= JSON.stringify({
+                username: $('.account').val(),
+                password: $('.password').val()
+            });
+            loginFun(paramsData);
+        })
+
+        //  回车提交 
+        $('#triggleEnter').bind('keypress',function(event){ 
+        　　if(event.keyCode==13){
+                var paramsData= JSON.stringify({
+                    username: $('.account').val(),
+                    password: $('.password').val()
+                }); 
+                loginFun(paramsData);
+        　　} 
+        }); 
+    })
+</script>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="../../img/logo.ico">
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/regist.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/personal.css">
+    <title>新时空智能系统</title>
+</head>
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    .checkBtn {
+        background-color: #e6e6e6;
+    }
+
+    .layOut {
+        border-top: 1px solid #e7e7e7;
+        padding: 20px 30px 30px;
+    }
+
+    .layOut .dashboard .input-group-btn .btn {
+        margin-top: -2px;
+    }
+
+    .layOut .dashboard .moduleContainer .btns {
+        margin-top: 20px;
+    }
+
+    .layOut .dashboard .moduleContainer .equipmentTable {
+        cursor: pointer;
+        margin-top: 12px;
+        border: 1px solid #e7e7e7;
+    }
+
+     /* 分页 */
+     .page_div {
+        margin: 30px 10px 20px 0;
+        text-align: center;
+        color: #666
+    }
+
+    /* 页数按钮样式 */
+
+    .page_div button {
+        display: inline-block;
+        min-width: 30px;
+        height: 28px;
+        cursor: pointer;
+        color: #666;
+        font-size: 13px;
+        line-height: 28px;
+        background-color: #f9f9f9;
+        border: 1px solid #dce0e0;
+        text-align: center;
+        margin: 0 4px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    #firstPage,
+    #lastPage,
+    #nextPage,
+    #prePage {
+        width: 50px;
+        color: #0073A9;
+        border: 1px solid #0073A9
+    }
+
+    #nextPage,
+    #prePage {
+        width: 70px
+    }
+
+    .page_div .current {
+        background-color: #0073A9;
+        border-color: #0073A9;
+        color: #FFF
+    }
+
+    /* 页面数量 */
+
+    .totalPages {
+        margin: 0 10px
+    }
+
+    .totalPages span,
+    .totalSize span {
+        color: #0073A9;
+        margin: 0 5px
+    }
+
+    /*button禁用*/
+
+    .page_div button:disabled {
+        opacity: .5;
+        cursor: no-drop
+    }
+</style>
+<body>
+    <header class="header clearfix">
+        <div class="topUp fl">
+            <a href="../Home/index.html" class="logo_bg">
+                <img src="../../img/logo.png" alt="">
+            </a>
+            <ul class="menusBox">
+                <li class="menus">
+                    <a href="../Home/index.html">首页</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">渠道管理</a>
+                </li> -->
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">设备管理</a>
+                </li> -->
+                <li class="menus">
+                    <a href="../Flow/flowList.html">流量管理</a>
+                </li>
+                <li class="menus">
+                    <a href="../Order/trafficRecord.html">订单管理</a>
+                </li>
+                <!-- <li class="menus">
+                    <a href="javascript:void(0)">统计报表</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="topDown">
+            <span class="dropDown">
+                <span class="glyphicon glyphicon-bell"></span>
+                <span class="userName"></span>
+                <img class="userIcon"  src="../../img/userIcon07.png" alt="">
+            </span>
+            <div class="userBox">
+                <ul>
+                    <li>
+                        <a href="../Personal/userCenter.html">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="../Personal/login.html">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="layOut personCenter">
+        <div class="containerInner clearfix">
+            <div class="left_nav fl">
+                <ul class="navBox">
+                    <li class="navItem">
+                        <span class="title">
+                            <img  src="../../img/icons/icon_zhanghu.png" alt="" class="icons">
+                            <span class="text">账户管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="./userCenter.html" class="">基本信息</a></li>
+                            <li><a href="./userAccount.html" class="active">用户管理</a></li>
+                            <li><a href="./groupManagement.html">分组管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_zichan.png" alt="" class="icons">
+                            <span class="text">资产管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="javascript:void(0)">我的钱包</a></li>
+                            <li><a href="javascript:void(0)">充值记录</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_xiaoxi.png" alt="" class="icons">
+                            <span class="text">消息通知</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="./messageController.html">未读消息</a></li>
+                            <li><a href="javascript:void(0)">已读消息</a></li>
+                            <li><a href="javascript:void(0)">消息接收管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_API.png" alt="" class="icons">
+                            <span class="text">API管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="./apiList.html">API管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="navItem">
+                        <span class="title">
+                            <img src="../../img/icons/icon_API.png" alt="" class="icons">
+                            <span class="text">日志管理</span>
+                        </span>
+                        <ul class="subMenus">
+                            <li><a href="javascript:void(0)">操作日志</a></li>
+                            <li><a href="javascript:void(0)">异常日志</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="right_content">
+                <div class="contentBox">
+                    <div class="bindInfo">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>企业编号</th>
+                                    <th>企业名称</th>
+                                    <th>业务负责人</th>
+                                    <th>负责人电话</th>
+                                    <th>负责人邮箱</th>
+                                    <th>企业地址</th>
+                                    <th>企业主账户</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>NTS_82110616</td>
+                                    <td>深圳新时空智能系统</td>
+                                    <td>邵先生</td>
+                                    <td>18603059551</td>
+                                    <td>shaoying@ntsitech.com</td>
+                                    <td>深圳市福田区爱地大厦西座21D</td>
+                                    <td>ntsitech</td>
+                                    <td>2020-02-05 21:41:30</td>
+                                    <td>
+                                        <button class="createBtn">新增</button>
+                                        <!-- <button class="editBtn">修改</button> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <!-- 创建账户弹窗 -->
+    <div class="addAccount_dialog messageDialog" id="addAccount_dialog">
+        <label for="username" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- username: -->
+                账户名称:
+            </span>
+            <input autocomplete="off" type="text" id="username" class="deviceItem_content username fr" placeholder="请输入账户名称">
+        </label>
+        <label for="password" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- password: -->
+                账户密码:
+            </span>
+            <input autocomplete="off" type="password" id="password" class="deviceItem_content password fr" placeholder="请输入账户密码">
+        </label>
+        <label for="mobile" class="deviceItem deviceItem1">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- mobile: -->
+                手机号码:
+            </span>
+            <input autocomplete="off" type="text" id="mobile" class="deviceItem_content mobile fr" placeholder="请输入绑定手机号码">
+        </label>
+        <!-- <label for="smsCode" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                验证码:
+            </span>
+            <input type="text" id="smsCode" class="deviceItem_content smsCode fr" placeholder="请输入短信验证码">
+        </label> -->
+        <label for="companyEmail" class="deviceItem deviceItem2">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- companyEmail: -->
+                邮箱地址:
+            </span>
+            <input autocomplete="off" type="text" id="companyEmail" class="deviceItem_content companyEmail fr" placeholder="请输入绑定邮箱地址">
+        </label>
+        <!-- <label for="companyAlias" class="deviceItem deviceItem3">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                企业编号:
+            </span>
+            <input type="text" id="companyAlias" class="deviceItem_content companyAlias fr" placeholder="请输入企业编号">
+        </label> -->
+        <label for="companyName" class="deviceItem deviceItem4">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- companyName: -->
+                企业名称: 
+            </span>
+            <input autocomplete="off" type="text" id="companyName" class="deviceItem_content companyName fr" placeholder="请输入企业名称">
+        </label>
+        <label for="companyAddress" class="deviceItem deviceItem5">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                <!-- companyAddress: -->
+                企业地址:
+            </span>
+            <input autocomplete="off" type="text" id="companyAddress" class="deviceItem_content companyAddress fr" placeholder="请输入企业地址">
+        </label>
+        <label for="flowType" class="deviceItem deviceItem5 w100">
+            <span class="deviceItem_title fl">
+                <span class="requireFlag">*</span>
+                计费模式:
+            </span>
+            <select name="flowType" id="flowType" style="margin-left: 12px;height: 32px;line-height: 32px;">
+                <option  value="1">自定义计价模式 (9RMB / 1KB)</option>
+                <option  value="2">其它计价模式</option>
+            </select>
+            <!-- <input type="radio" name="flowType" id="flowType1" value="自定义计价模式" style="vertical-align: middle;" class=" " placeholder="">
+            <span class="flowType_title" style="vertical-align: middle;line-height: 32px;">自定义计价模式 (9RMB / 1KB)</span>
+            <input type="radio" name="flowType" id="flowType2" value="其它计价模式" style="vertical-align: middle;margin-left: 8px;" class=" " placeholder="">
+            <span class="flowType_title" style="vertical-align: middle;line-height: 32px;">其它计价模式</span> -->
+        </label>
+        <button class="confirm_btn optionBtn fr">确定</button>
+        <button class="cancel_btn optionBtn fr">取消</button>
+    </div>
+</body>
+</html>
+<script src="../../lib/jQuery/jquery-3.4.0.js"></script>
+<script src="../../lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../../lib/layer-v3.1.1/layer/layer.js"></script>
+<script src="../../lib/pageMe.js"></script>
+<script src="../../js/common.js"></script>
+
+<script>
+    $(function() {
+        // 登录判断
+        var isLogin= JSON.parse(localStorage.getItem('userInfo'))
+        if(isLogin === null) {
+            window.location.href= '../Personal/login.html';
+        }
+        // (1.1) 点击新增弹出创建账户按钮
+        jQuery('.createBtn').on('click',function(){
+            layer.open({
+                type: 1,
+                title: '创建账户',
+                area: ['500px', '500px'], //宽高
+                content: jQuery('.addAccount_dialog')
+            })
+        })
+        
+        // (1.2) 点击添加设备确定按钮,发送添加设备方法
+        jQuery('.confirm_btn').on('click',function(){
+            var accountInfo= {
+                username: jQuery('#username').val(),       
+                password: jQuery('#password').val(),           
+                mobile: jQuery('#mobile').val(),        
+                companyEmail: jQuery('#companyEmail').val(),             
+                companyName: jQuery('#companyName').val() ,        
+                companyAddress: jQuery('#companyAddress').val(),
+                billMode: jQuery('#flowType').val()
+            }
+            accountInfo= JSON.stringify(accountInfo);
+            add_Account(accountInfo);
+        })
+
+        // (1.3) 点击添加设备取消按钮 
+        jQuery('.cancel_btn').on('click',function(){
+            layer.closeAll();
+        })
+
+        // (1.4) 创建账户方法封装
+        function add_Account(params){
+            jQuery.ajax({
+                url: baseUrl+'app/oae/register',
+                type: 'post',
+                contentType: 'application/json',
+                headers: {
+                    "token": JSON.parse(localStorage.getItem('userInfo')).token
+                },
+                data: params,
+                success: function(res) {
+                    if(res.code == 0) {
+                        layer.msg('账号创建成功')
+                    }else {
+                        layer.msg(res.msg,function(){
+                            layer.closeAll();
+                        });
+                    }
+                },
+                error: function(err) {
+                    layer.msg(err.msg)
+                }
+            })
+        }
+    })
+
+</script>
